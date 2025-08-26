@@ -38,7 +38,7 @@ function App() {
             } 
           />
           <Route 
-            path="auth/:authType" 
+            path="auth/login" 
             element={
               <PublicRoute restricted={true}>
                 <AuthPage />
@@ -47,13 +47,11 @@ function App() {
           />
 
           {/* Приватні маршрути */}
-          <Route 
-            path="recipes" 
+          <Route
+            path="auth/login"
             element={
-              <PrivateRoute>
-                <AddRecipePage />
-              </PrivateRoute>
-            } 
+              <PrivateRoute redirectTo="/" component={<AuthPage />} />
+            }
           />
 
           {/* Catch all 404 */}
