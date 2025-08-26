@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react"; // іконки очей
-import styles from "./login.module.css";
+import styles from "./LoginForm.module.css";
 
-const Login = () => {
+const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const initialValues = {
@@ -101,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
