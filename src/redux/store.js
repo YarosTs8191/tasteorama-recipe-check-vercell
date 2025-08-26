@@ -1,6 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './auth/slice';
-import storage from 'redux-persist/lib/storage';
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./auth/slice";
+import recipesReducer from "./recipes/slice";
+import categoriesReducer from "./categories/slice"; 
+import ingredientsReducer from "./ingredients/slice"; 
+import storage from "redux-persist/lib/storage";
 import {
   persistStore,
   persistReducer,
@@ -10,19 +13,22 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
+} from "redux-persist";
 
 const authPersistConfig = {
-  key: 'auth',
+  key: "auth",
   storage,
-  whitelist: ['token'],
+  whitelist: ["token"],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: persistedAuthReducer
+    auth: persistedAuthReducer,
+    recipes: recipesReducer,
+    categories: categoriesReducer,      
+    ingredients: ingredientsReducer,    
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
