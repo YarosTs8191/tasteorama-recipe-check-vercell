@@ -3,7 +3,8 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 export default function LoginPage() {
   return (
     <div>
-      <LoginForm />
+      <h1>My profile</h1>
+<ProfileNavigation/>
     </div>
   );
 }
