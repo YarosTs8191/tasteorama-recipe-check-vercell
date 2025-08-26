@@ -1,19 +1,32 @@
-// App.jsx
+import { useEffect, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../Layout/Layout';
 import PublicRoute from '../PublicRoute';
 import PrivateRoute from '../PrivateRoute';
+import { selectIsRefreshing } from '../../redux/auth/selectors';
+import { refreshUser } from '../../redux/auth/operations';
 
-// Lazy load сторінок для code-splitting
-import { lazy, Suspense } from 'react';
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
 const RecipeViewPage = lazy(() => import('../../pages/RecipeViewPage/RecipeViewPage'));
 const AddRecipePage = lazy(() => import('../../pages/AddRecipePage/AddRecipePage'));
 const ProfilePage = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
 const AuthPage = lazy(() => import('../../pages/AuthPage/AuthPage'));
+const RegisterPage = lazy(() => import('../../pages/AuthPage/RegisterPage'));
 const NotFound = lazy(() => import('../../components/NotFound/NotFound'));
 
 function App() {
+    const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  if (isRefreshing) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
@@ -46,11 +59,20 @@ function App() {
             } 
           />
 
+          <Route 
+            path="auth/register" 
+            element={
+              <PublicRoute restricted={true}>
+                <RegisterPage />
+              </PublicRoute>
+            } 
+          />
+
           {/* Приватні маршрути */}
           <Route
-            path="auth/login"
+            path="/auth/logout"
             element={
-              <PrivateRoute redirectTo="/" component={<AuthPage />} />
+              <PrivateRoute redirectTo="/auth/login" component={<AuthPage />} />
             }
           />
 
