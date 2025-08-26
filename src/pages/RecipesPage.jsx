@@ -9,7 +9,7 @@ import {
   selectHasMore,
 } from '../features/recipes/recipesSlice';
 import LoadMoreBtn from '../components/LoadMoreBtn/LoadMoreBtn';
-import '../components/LoadMoreBtn/LoadMoreBtn.css';
+import '../components/LoadMoreBtn/LoadMoreBtn.module.css';
 
 function RecipeCard({ recipe }) {
   return (
