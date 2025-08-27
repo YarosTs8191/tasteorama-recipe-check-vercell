@@ -1,0 +1,159 @@
+/* Styles for mobile */
+.footer {
+  background: var(--dark-brown);
+  width: 100%;
+  padding: 24px 0;
+  position: absolute;
+  bottom: 0;
+  font-family: var(--font-family);
+  font-weight: var(--fw-semibold);
+  color: var(--white);
+}
+
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  max-width: 393px;
+  gap: 32px;
+  margin: 0 auto;
+}
+
+.footerHomeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.footerIcon {
+  width: 32px;
+  height: 30px;
+}
+
+.logoSpan {
+  font-size: 18px;
+  line-height: 1.23;
+  letter-spacing: -0.03em;
+}
+
+.footerText {
+  max-width: 282px;
+  font-weight: var(--fw-regular);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.footerNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.footerNav .links {
+  position: relative;
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* Styles for tablet */
+@media only screen and (min-width: 768px) {
+  .footerContainer {
+    padding: 0 32px;
+    max-width: 768px;
+  }
+
+  .footerNav {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+/* Styles for desktop */
+@media only screen and (min-width: 1440px) {
+  .footerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 108px;
+    max-width: 1440px;
+  }
+
+  .footerHomeLink {
+    transition: transform 0.3s ease;
+  }
+
+  .footerHomeLink:hover {
+    transform: scale(1.05);
+  }
+
+  .footerIcon {
+    animation: pulse 2s ease-in-out infinite;
+    transition: transform 0.3s ease;
+  }
+
+  .footerHomeLink:hover .footerIcon {
+    transform: rotate(15deg);
+  }
+
+  .footerText {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+  }
+
+  .footerNav .links {
+    transition: color 0.3s ease;
+  }
+
+  .footerNav .links::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #f0e6d2;
+    transition: width 0.3s ease;
+  }
+
+  .footerNav .links:hover::after,
+  .footerNav .links:focus::after {
+    width: 100%;
+  }
+
+  .footerNav .links:hover,
+  .footerNav .links:focus {
+    color: #f0e6d2;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
