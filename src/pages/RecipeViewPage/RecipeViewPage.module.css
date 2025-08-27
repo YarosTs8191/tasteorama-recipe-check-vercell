@@ -36,7 +36,11 @@
   width: 100%;
   margin-top: 12px;
   padding: 8px;
+<<<<<<< HEAD
   background-color: #a0522d;
+=======
+  background-color: #a0522d; /* коричневий як у макеті */
+>>>>>>> rescue-work
   color: white;
   border: none;
   border-radius: 6px;

@@ -9,7 +9,7 @@ export default function IngredientsList({ ingredients }) {
     <ul className={styles.list}>
       {ingredients.map((item, index) => (
         <li key={index} className={styles.item}>
-          {item}
+          {item.name} — {item.amount}
         </li>
       ))}
     </ul>

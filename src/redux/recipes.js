@@ -1,4 +1,3 @@
-// src/redux/recipes.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -10,7 +9,7 @@ export const fetchRecipeById = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:5000/api/recipes/${id}` // TODO: замінити на реальний бекенд URL
       );
-      return response.data;
+      return response.data.data; // 👈 беремо тільки сам рецепт
     } catch (error) {
       return rejectWithValue(error.response?.data || "Server error");
     }
@@ -38,7 +37,7 @@ const recipesSlice = createSlice({
       })
       .addCase(fetchRecipeById.fulfilled, (state, action) => {
         state.loading = false;
-        state.recipe = action.payload;
+        state.recipe = action.payload; // 👈 тепер тут тільки рецепт
       })
       .addCase(fetchRecipeById.rejected, (state, action) => {
         state.loading = false;

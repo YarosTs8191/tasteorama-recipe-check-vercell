@@ -1,6 +1,6 @@
 import styles from "./RecipeDetails.module.css";
-import IngredientsList from "../IngredientsList/IngredientsList";
-import StepsList from "../StepsList/StepsList";
+import IngredientsList from "./IngredientsList";
+import StepsList from "./StepsList";
 
 export default function RecipeDetails({ recipe }) {
   if (!recipe) return null; // захист від пустих даних
