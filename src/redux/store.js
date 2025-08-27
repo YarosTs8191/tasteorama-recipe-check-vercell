@@ -33,6 +33,7 @@ export const store = configureStore({
     ingredients: ingredientsReducer,
     filters: filtersReducer, // ← і це
     modal,
+    auth: persistedAuthReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
