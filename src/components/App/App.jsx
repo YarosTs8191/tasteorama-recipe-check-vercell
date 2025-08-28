@@ -16,7 +16,7 @@ const RegisterPage = lazy(() => import('../../pages/AuthPage/RegisterPage'));
 const NotFound = lazy(() => import('../../components/NotFound/NotFound'));
 
 function App() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
@@ -25,7 +25,8 @@ function App() {
 
   if (isRefreshing) {
     return <p>Loading...</p>;
-  }
+  };
+
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
