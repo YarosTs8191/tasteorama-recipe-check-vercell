@@ -79,6 +79,21 @@ function App() {
             }
           />
 
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute
+                component={<ProfilePage />}
+                redirectTo="/auth/login"
+              />
+            }
+          >
+            {/* Вкладені маршрути */}
+            <Route index element={<Navigate to="own" />} />
+            <Route path="own" element={<OwnRecipes />} />
+            <Route path="favorites" element={<FavoriteRecipes />} />
+          </Route>
+
           {/* Catch all 404 */}
           <Route path="*" element={<NotFound />} />
         </Route>

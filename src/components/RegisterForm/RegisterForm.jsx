@@ -17,14 +17,14 @@ const RegisterForm = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(16, "Name must be at least 2 characters")
+      .max(16, "Name must be no longer 16 characters")
       .required("Name is required"),
     email: Yup.string()
       .email("Invalid email format")
       .max(128, "Email address must be no longer than 128 characters.")
       .required("Email is required"),
     password: Yup.string()
-      .min(8, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
       .max(128, "Password must be no longer 128 characters")
       .required("Password is required"),
     confirmPassword: Yup.string()
@@ -32,11 +32,11 @@ const RegisterForm = () => {
       .required("Confirm Password is required"),
   });
 
-  // const handleSubmit = (values, { setSubmitting }) => {
-  //   console.log("Registration Data:", values);
-  //   setTimeout(() => setSubmitting(false), 500);
-  //   тут буде запит на бекенд для реєстрації
-  // };
+  const handleSubmit = (values, { setSubmitting }) => {
+    console.log("Registration Data:", values);
+    setTimeout(() => setSubmitting(false), 500);
+    // тут буде запит на бекенд для реєстрації
+  };
 
   return (
     <div className={styles.container}>
@@ -49,7 +49,7 @@ const RegisterForm = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className={styles.form}>
