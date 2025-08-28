@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth/slice';
 import recipesReducer from './recipes/slice';
-import categoriesReducer from './categories/slice';
-import ingredientsReducer from './ingredients/slice';
-import filtersReducer from './filters/slice';
+//import categoriesReducer from './categories/slice';
+//import ingredientsReducer from './ingredients/slice';
+//import filtersReducer from './filters/slice';
 import modal from './modal/slice';
 import storage from 'redux-persist/lib/storage';
 import {
@@ -29,9 +29,9 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     recipes: recipesReducer,
-    categories: categoriesReducer,
-    ingredients: ingredientsReducer,
-    filters: filtersReducer, // ← і це
+    //categories: categoriesReducer,
+    //ingredients: ingredientsReducer,
+    //filters: filtersReducer, 
     modal,
     auth: persistedAuthReducer
   },
