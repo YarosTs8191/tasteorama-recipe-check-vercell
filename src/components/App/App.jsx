@@ -29,7 +29,8 @@ function App() {
 
   if (isRefreshing) {
     return <p>Loading...</p>;
-  }
+  };
+
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
