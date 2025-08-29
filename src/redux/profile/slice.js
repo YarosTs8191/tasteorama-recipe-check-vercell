@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProfile } from "./profileThunks";
+import { fetchProfile } from "./operations";
 import { notifyError } from "../utils/notifications";
 
 const initialState = {
