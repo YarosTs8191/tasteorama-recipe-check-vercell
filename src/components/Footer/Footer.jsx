@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/slice';
 import AuthModal from '../AuthModal/AuthModal';
-import iconSprite from '../../icons/icons.svg';
+import iconSprite from '../../assets/icons/icons.svg';
 
 export default function Footer() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
