@@ -31,7 +31,6 @@ const recipesSlice = createSlice({
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.loading = false;
         state.items = action.payload.data || action.payload; // залежить від бекенду
-        // Якщо є пагінація — розпарси:
         if (action.payload.page) {
           state.page = action.payload.page;
           state.perPage = action.payload.perPage;
