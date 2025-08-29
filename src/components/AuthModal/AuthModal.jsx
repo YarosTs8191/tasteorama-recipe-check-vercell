@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { closeModal } from '../../redux/modal/slice';
 import { selectModal } from '../../redux/modal/selectors';
-import iconSprite from '../../icons/icons.svg';
+import iconSprite from '../../assets/icons/icons.svg';
 
 export default function AuthModal() {
   const { isModalOpen } = useSelector(selectModal);
