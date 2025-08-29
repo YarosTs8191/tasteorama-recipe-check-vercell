@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../api/axiosInstance"; // Створити axiosInstance з базовим URL і токеном
 
 export const registerUser = createAsyncThunk(
-  "auth/registerUser",
+  "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post("/api/auth/register", userData);
@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  "auth/loginUser",
+  "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post("/api/auth/login", credentials);
@@ -26,7 +26,7 @@ export const loginUser = createAsyncThunk(
 );
 
 export const fetchCurrentUser = createAsyncThunk(
-  "auth/fetchCurrentUser",
+  "users/me",
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
@@ -41,7 +41,7 @@ export const fetchCurrentUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  "auth/logoutUser",
+  "auth/logout",
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
@@ -53,6 +53,21 @@ export const logoutUser = createAsyncThunk(
       return;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Logout failed");
+    }
+  }
+);
+
+export const refreshUser = createAsyncThunk(
+  "users/me",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const { token } = getState().auth;
+      const response = await axios.get("/api/users/current", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Unable to fetch user");
     }
   }
 );

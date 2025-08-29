@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCategories, fetchIngredients } from "./filtersThunks";
+import { fetchCategories, fetchIngredients } from "./operations";
 import { notifyError } from "../utils/notifications";
 
 const initialState = {

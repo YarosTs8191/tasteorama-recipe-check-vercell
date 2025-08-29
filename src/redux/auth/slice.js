@@ -4,7 +4,7 @@ import {
   loginUser,
   fetchCurrentUser,
   logoutUser,
-} from "./authThunks";
+} from "./operations";
 import { notifyError, notifySuccess } from "../utils/notifications";
 
 const initialState = {
@@ -29,7 +29,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
+      .addCase(registerUser.fulfilled, (state) => {
         state.loading = false;
         notifySuccess("Registration successful");
       })
