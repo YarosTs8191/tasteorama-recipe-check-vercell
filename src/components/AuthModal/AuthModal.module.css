@@ -1,0 +1,178 @@
+/* Styles for mobile */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 24px 32px;
+  gap: 20px;
+  width: 362px;
+  height: 341px;
+  background: var(--light-beige);
+  border-radius: 32px;
+  color: var(--black);
+  font-family: var(--font-family);
+  font-weight: var(--semibold);
+}
+
+.modalCloseBtn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.modalIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--black);
+}
+
+.modalTitle {
+  font-size: 32px;
+  line-height: 1.21;
+  text-align: center;
+}
+
+.modalText {
+  font-weight: var(--fw-regular);
+  font-size: 16px;
+  line-height: 155%;
+  text-align: center;
+}
+
+.btnsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 314px;
+}
+
+.modalLogInBtn,
+.modalRegisterBtn {
+  display: block;
+  padding: 16px;
+  width: 100%;
+  height: 54px;
+  background-color: transparent;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1.22;
+}
+
+.modalRegisterBtn {
+  background: var(--light-brown);
+  color: var(--white);
+  border: none;
+}
+
+.modalLogInBtn:hover,
+.modalRegisterBtn:hover {
+  background-color: var(--brown);
+  color: var(--white);
+  border: none;
+}
+
+/* Styles for tablet */
+@media only screen and (min-width: 768px) {
+  .modal {
+    padding: 56px 32px;
+    width: 420px;
+    height: 277px;
+  }
+
+  .modalCloseBtn {
+    right: 32px;
+  }
+
+  .btnsWrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 27px;
+    width: 356px;
+  }
+
+  .modalLogInBtn,
+  .modalRegisterBtn {
+    width: 164.5px;
+    height: 36px;
+    font-size: 16px;
+    line-height: 1.25;
+    padding: 8px;
+  }
+}
+
+/* Styles for desktop */
+@media only screen and (min-width: 1440px) {
+  .modalOverlay {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .modal {
+    transform: translateY(-20px);
+    animation: slideIn 0.5s ease-out 0.2s forwards;
+  }
+
+  .modalCloseBtn {
+    transition: transform 0.3s ease;
+  }
+
+  .modalCloseBtn:hover {
+    transform: rotate(90deg);
+  }
+
+  .modalIcon {
+    color: var(--black);
+    transition: stroke 0.3s ease;
+  }
+
+  .modalCloseBtn:hover .modalIcon {
+    transform: scale(1.3);
+  }
+
+  .modalLogInBtn,
+  .modalRegisterBtn {
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .modalLogInBtn:hover,
+  .modalRegisterBtn:hover,
+  .modalLogInBtn:focus,
+  .modalRegisterBtn:focus {
+    background-color: var(--brown);
+    color: var(--white);
+    border: none;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
