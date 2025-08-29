@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchRecipes, fetchRecipeById } from "./recipesThunks";
-import { notifyError, notifySuccess } from "../utils/notifications";
+import { notifyError } from '../utils/notifications.js';
 
 const initialState = {
   items: [],
