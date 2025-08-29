@@ -2,6 +2,7 @@ header {
     background: #3d2218;
     position: relative;
     z-index: 1;
+    font-family: var(--font-family);
 }
 
 .container {
