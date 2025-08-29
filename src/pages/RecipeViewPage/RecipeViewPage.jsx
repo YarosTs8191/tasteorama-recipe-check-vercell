@@ -17,7 +17,7 @@ export default function RecipeViewPage() {
   // Коли сторінка завантажується – робимо запит
   useEffect(() => {
     if (recipeId) {
-      dispatch(fetchRecipeById(id));
+      dispatch(fetchRecipeById(recipeId));
     }
 
     // При виході зі сторінки – очищаємо state
