@@ -4,7 +4,8 @@ export default function LoginPage() {
   return (
     <div>
       <h1>My profile</h1>
-<ProfileNavigation/>
+      {/* <ProfileNavigation /> */}
+      <LoginForm />
     </div>
   );
 }

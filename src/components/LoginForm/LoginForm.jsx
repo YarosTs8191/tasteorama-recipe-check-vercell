@@ -90,7 +90,7 @@ const LoginForm = () => {
 
             <p className={styles.registerText}>
               Don’t have an account?{" "}
-              <a href="/register" className={styles.registerLink}>
+              <a href="auth/register" className={styles.registerLink}>
                 Register
               </a>
             </p>

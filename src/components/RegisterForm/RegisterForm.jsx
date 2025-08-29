@@ -17,13 +17,15 @@ const RegisterForm = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(2, "Name must be at least 2 characters")
+      .max(16, "Name must be no longer 16 characters")
       .required("Name is required"),
     email: Yup.string()
       .email("Invalid email format")
+      .max(128, "Email address must be no longer than 128 characters.")
       .required("Email is required"),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
+      .max(128, "Password must be no longer 128 characters")
       .required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -39,6 +41,10 @@ const RegisterForm = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Register</h2>
+      <p className={styles.paragraph}>
+        Join our community of culinary enthusiasts, save your favorite recipes,
+        and share your cooking creations
+      </p>
 
       <Formik
         initialValues={initialValues}
@@ -48,22 +54,7 @@ const RegisterForm = () => {
         {({ isSubmitting }) => (
           <Form className={styles.form}>
             <div className={styles.field}>
-              <label htmlFor="name">Full Name</label>
-              <Field
-                type="text"
-                name="name"
-                placeholder="John Doe"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Enter your email address</label>
               <Field
                 type="email"
                 name="email"
@@ -76,14 +67,28 @@ const RegisterForm = () => {
                 className={styles.error}
               />
             </div>
+            <div className={styles.field}>
+              <label htmlFor="name">Enter your name</label>
+              <Field
+                type="text"
+                name="name"
+                placeholder="Max"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                className={styles.error}
+              />
+            </div>
 
             <div className={styles.field}>
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Create a strong password</label>
               <div className={styles.passwordWrapper}>
                 <Field
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  placeholder="********"
+                  placeholder="*********"
                   className={styles.input}
                 />
                 <button
@@ -102,12 +107,12 @@ const RegisterForm = () => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="confirmPassword">Confirm Password</label>
+              <label htmlFor="confirmPassword">Repeat your password</label>
               <div className={styles.passwordWrapper}>
                 <Field
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
-                  placeholder="********"
+                  placeholder="*********"
                   className={styles.input}
                 />
                 <button
@@ -115,7 +120,11 @@ const RegisterForm = () => {
                   className={styles.eyeButton}
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                  {showConfirmPassword ? (
+                    <Eye size={20} />
+                  ) : (
+                    <EyeOff size={20} />
+                  )}
                 </button>
               </div>
               <ErrorMessage
@@ -124,13 +133,24 @@ const RegisterForm = () => {
                 className={styles.error}
               />
             </div>
-
+            {/* чекбокс */}
+            <label className={styles.containerCheckbox}>
+              <input type="checkbox" className={styles.checkbox} />
+              <span className={styles.customCheckbox}>
+                <svg className={styles.checkIcon} width="16" height="16">
+                  <use href="/public/sprite.svg#checkbox_icon" />
+                </svg>
+              </span>
+              <span className={styles.labelText}>
+                I agree to the Terms of Service and Privacy Policy
+              </span>
+            </label>
             <button
               type="submit"
               className={styles.button}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Loading..." : "Register"}
+              {isSubmitting ? "Loading..." : "Create account"}
             </button>
 
             <p className={styles.registerText}>

@@ -17,13 +17,12 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-const authPersistConfig = {
-  key: 'auth',
-  storage,
-  whitelist: ['token'],
-};
 
-const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+// const authPersistConfig = {
+//   key: "auth",
+//   storage,
+//   whitelist: ["token"],
+// };
 
 export const store = configureStore({
   reducer: {
@@ -43,4 +42,25 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store);
+// const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+
+// export const store = configureStore({
+//   reducer: {
+//     auth: persistedAuthReducer,
+//     recipes: recipesReducer,
+//     categories: categoriesReducer,
+//     ingredients: ingredientsReducer,
+//     filters: filtersReducer, // ← і це
+//     modal,
+//     auth: persistedAuthReducer
+//   },
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
+// });
+
+// export const persistor = persistStore(store);
