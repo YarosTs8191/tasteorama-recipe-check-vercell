@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecipeById, clearRecipe } from "../../redux/recipes";
 import RecipeDetails from "../../components/RecipeDetails/RecipeDetails";
-import NotFound from "../../components/NotFound";
+import NotFound from "../../components/NotFound/NotFound";
 import styles from "./RecipeViewPage.module.css";
 
 export default function RecipeViewPage() {
