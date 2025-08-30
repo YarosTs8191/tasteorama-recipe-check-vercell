@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-//import LogoutBtn from '../LogoutBtn/LogoutBtn';
+import LogoutBtn from '../LogoutBtn/LogoutBtn';
 import styles from './Navigation.module.css';
-//import UserInfo from '../UserInfo/UserInfo';
+import UserInfo from '../UserInfo/UserInfo';
 
 export default function Navigation({ isLoggedIn }) {
   return (

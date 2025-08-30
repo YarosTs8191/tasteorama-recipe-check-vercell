@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
-import sprite from '../../assets/icons/icons.svg';
+import sprite from '../../../public/sprite.svg';
 import styles from './Header.module.css';
 import BurgerModal from '../BurgerModal/BurgerModal';
 import Navigation from '../Navigation/Navigation';
@@ -20,7 +20,7 @@ export default function Header() {
       <div className={styles.container}>
         <Link to="/" className={styles.logoLink}>
           <svg className={styles.logo}>
-            <use href={`${sprite}#icon-logo`} />
+            <use href={`${sprite}#logo_icon`} />
           </svg>
           <span className={styles.title}>Tasteorama</span>
         </Link>
@@ -31,7 +31,7 @@ export default function Header() {
           onClick={toggleModal}
         >
           <svg className={styles.burger}>
-            <use href={`${sprite}#icon-burger`} />
+            <use href={`${sprite}#burger_menu_icon`} />
           </svg>
         </button>
       </div>

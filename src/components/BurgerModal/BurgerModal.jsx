@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import sprite from '../../assets/icons/icons.svg';
+import sprite from '../../../public/sprite.svg';
 import styles from './BurgerModal.module.css';
 import UserInfo from '../UserInfo/UserInfo';
 import LogoutButton from '../LogoutButton/LogoutButton';
@@ -12,7 +12,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
           <div className={styles.modalHeader}>
             <Link to="/" className={styles.logo} onClick={onClose}>
               <svg className={styles.logoImg}>
-                <use href={`${sprite}#icon-logo`} />
+                <use href={`${sprite}#logo_icon`} />
               </svg>
               <p className={styles.title}>Tasteorama</p>
             </Link>
@@ -65,7 +65,7 @@ export default function BurgerModal({ onClose, isLoggedIn }) {
                 </li>
                 <li className={styles.userSection}>
                   <UserInfo />
-                  <LogoutBtn onBurgerModalClose={onClose} />
+                  <LogoutButton onBurgerModalClose={onClose} />
                 </li>
                 <li>
                   <NavLink

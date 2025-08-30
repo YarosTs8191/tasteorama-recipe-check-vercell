@@ -1,24 +1,26 @@
 import { useSelector } from 'react-redux';
 import RecipeCard from '../RecipeCard/RecipeCard.jsx';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.jsx';
+import { selectRecipesLoading } from '../../redux/recipes/selectors.js';
+import css from './RecipeList.module.css';
 
-const { recipesData, loading } = useSelector(zaglushka);
+export default function RecipeList({recipes}) {
 
-export default function RecipeList() {
+   const loading = useSelector(selectRecipesLoading);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loader/>;
 
     return (
         <div>
 
-            <ul>
-                {recipesData.items.map((recipe) => (
-                    <li key={recipe._id}>
+            <p className={css.recipesCount}>{recipesCount}</p>
+
+            <ul className={css.recipeList}>
+                {recipes.map((recipe) => (
+                    <li key={recipe._id} className={css.recipeListItem}>
                         <RecipeCard recipe={recipe} />
                     </li>
                 ))}
             </ul>
-            {!loading && recipesData.hasNextPage && <LoadMoreBtn />}
         </div>
     
     );
