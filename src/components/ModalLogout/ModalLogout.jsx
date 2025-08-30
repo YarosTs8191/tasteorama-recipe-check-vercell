@@ -1,11 +1,10 @@
 import Modal from 'react-modal';
-import s from './ModalLogout.module.css';
-import { useNavigate } from 'react-router-dom';
-import sprite from '../../assets/icons/icons.svg';
-//import { logout } from '../../redux/auth/operations';
-import { useDispatch } from 'react-redux';
-
 Modal.setAppElement('#root');
+import styles from './ModalLogout.module.css';
+import { useNavigate } from 'react-router-dom';
+import sprite from '../../../public/sprite.svg';
+import { logoutUser } from '../../redux/auth/operations';
+import { useDispatch } from 'react-redux';
 
 const ModalLogout = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
   const dispatch = useDispatch();
@@ -13,7 +12,7 @@ const ModalLogout = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
 
   const onConfirm = async () => {
     try {
-      await dispatch(logout()).unwrap();
+      await dispatch(logoutUser()).unwrap();
       onRequestClose();
       if (onBurgerModalClose) {
         onBurgerModalClose();
@@ -28,22 +27,22 @@ const ModalLogout = ({ isOpen, onRequestClose, onBurgerModalClose }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={s.container}
-      overlayClassName={s.overlay}
+      className={styles.container}
+      overlayClassName={styles.overlay}
     >
       <div>
-        <button className={s.btnx} onClick={onRequestClose}>
+        <button className={styles.btnx} onClick={onRequestClose}>
           <svg width="24" height="24">
-            <use href={`${sprite}#icon-close`}></use>
+            <use href={`${sprite}#dagger_icon`}></use>
           </svg>
         </button>
-        <h2 className={s.h2}>Are you sure?</h2>
-        <p className={s.p}>We will miss you!</p>
-        <div className={s.btncontainer}>
-          <button className={s.btncancel} onClick={onRequestClose}>
+        <h2 className={styles.h2}>Are you sure?</h2>
+        <p className={styles.p}>We will miss you!</p>
+        <div className={styles.btncontainer}>
+          <button className={styles.btncancel} onClick={onRequestClose}>
             Cancel
           </button>
-          <button className={s.btnlogout} onClick={onConfirm}>
+          <button className={styles.btnlogout} onClick={onConfirm}>
             Log out
           </button>
         </div>
