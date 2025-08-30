@@ -62,7 +62,7 @@ export const refreshUser = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
-      const response = await axios.get("/api/users/current", {
+      const response = await axios.get("/api/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
