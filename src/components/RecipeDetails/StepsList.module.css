@@ -1,0 +1,17 @@
+.list {
+  list-style: decimal;
+  padding-left: 20px;
+  margin: 12px 0;
+}
+
+.item {
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.empty {
+  font-size: 14px;
+  color: #999;
+  font-style: italic;
+}

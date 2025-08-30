@@ -1,3 +1,4 @@
-export const selectFilterByName = (state) => state.filters?.filterByName ?? "";
-export const selectFilterByCategory = (state) => state.filters?.filterByCategory ?? null;
-export const selectFilterByIngredients = (state) => state.filters?.filterByIngredients ?? null;
+export const selectCategories = (state) => state.filters.categories;
+export const selectIngredients = (state) => state.filters.ingredients;
+export const selectFiltersLoading = (state) => state.filters.loading;
+export const selectFiltersError = (state) => state.filters.error;

@@ -53,7 +53,7 @@ const LoginForm = () => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="password">Create a strong password</label>
+              <label htmlFor="password">Enter your password</label>
               <div className={styles.passwordWrapper}>
                 <Field
                   type={showPassword ? "text" : "password"}
@@ -90,7 +90,7 @@ const LoginForm = () => {
 
             <p className={styles.registerText}>
               Don’t have an account?{" "}
-              <a href="/register" className={styles.registerLink}>
+              <a href="auth/register" className={styles.registerLink}>
                 Register
               </a>
             </p>
