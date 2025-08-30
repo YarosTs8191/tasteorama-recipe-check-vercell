@@ -8,14 +8,14 @@ import { selectIsRefreshing } from "../../redux/auth/selectors.js";
 import { refreshUser } from "../../redux/auth/operations.js";
 //import { Navigate } from "react-router-dom";
 
-//const MainPage = lazy(() => import("../../pages/MainPage/MainPage"));
+const MainPage = lazy(() => import("../../pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
   import("../../pages/RecipeViewPage/RecipeViewPage")
 );
-// //const AddRecipePage = lazy(() =>
-//   import("../../pages/AddRecipePage/AddRecipePage")
-// );
-//const ProfilePage = lazy(() => import("../../pages/ProfilePage/ProfilePage"));
+const AddRecipePage = lazy(() =>
+  import("../../pages/AddRecipePage/AddRecipePage")
+);
+const ProfilePage = lazy(() => import("../../pages/ProfilePage/ProfilePage"));
 const AuthPage = lazy(() => import("../../pages/AuthPage/AuthPage"));
 const RegisterPage = lazy(() => import("../../pages/AuthPage/RegisterPage"));
 const NotFound = lazy(() => import("../../components/NotFound/NotFound"));
@@ -43,7 +43,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           
           {/* Public routes */}
-          {/* <Route index element={<PublicRoute restricted={false}><MainPage /></PublicRoute>}/> */}
+          <Route index element={<PublicRoute restricted={false}><MainPage /></PublicRoute>}/>
           <Route path="recipes/:recipeId" element={<PublicRoute restricted={false}><RecipeViewPage /></PublicRoute>}/>
           
           {/* {Auth} */}
@@ -52,7 +52,8 @@ function App() {
 
           {/* Private routes */}
           <Route path="/auth/logout" element={<PrivateRoute redirectTo="/auth/login" component={<AuthPage />} />}/>
-          {/* <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login"/>}/> */}
+          <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login"/>}/>
+          <Route path="/add-recipe" element={<PrivateRoute component={<AddRecipePage />} redirectTo="/auth/login"/>}/>
             
           {/* Вкладені маршрути
             <Route index element={<Navigate to="own" />} />
