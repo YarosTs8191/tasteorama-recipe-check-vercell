@@ -8,7 +8,7 @@ import { selectIsRefreshing } from "../../redux/auth/selectors.js";
 import { refreshUser } from "../../redux/auth/operations.js";
 //import { Navigate } from "react-router-dom";
 
-//const MainPage = lazy(() => import("../../pages/MainPage/MainPage"));
+const MainPage = lazy(() => import("../../pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
   import("../../pages/RecipeViewPage/RecipeViewPage")
 );
@@ -43,7 +43,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           
           {/* Public routes */}
-          {/* <Route index element={<PublicRoute restricted={false}><MainPage /></PublicRoute>}/> */}
+          <Route index element={<PublicRoute restricted={false}><MainPage /></PublicRoute>}/>
           <Route path="recipes/:recipeId" element={<PublicRoute restricted={false}><RecipeViewPage /></PublicRoute>}/>
           
           {/* {Auth} */}
