@@ -1,8 +1,16 @@
-import { Link } from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import css from "./RecipeCard.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function RecipeCard({ recipe }) {
+
+  const navigate = useNavigate();
+
+  const handleLearnMoreClick = () => {
+    navigate(`/recipes/${_id}`);
+  };
+
+
   return (
     <div className={css.recipeCard}>
       <img
@@ -24,9 +32,9 @@ export default function RecipeCard({ recipe }) {
       <p className={css.recipeDescription}>{recipe.description}</p>
       <p className={css.recipeCalories}>~{recipe.cals} kcal</p>
       <div className={css.foot}>
-        <Link to={`/recipes/${recipe._id}`} className={css.viewRecipeButton}>
+        <button className={css.viewRecipeButton} onClick={handleLearnMoreClick}>
           Learn More
-        </Link>
+        </button>
 
         <FavoriteButton
           recipeId={recipe._id}
