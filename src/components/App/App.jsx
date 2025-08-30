@@ -12,10 +12,10 @@ const MainPage = lazy(() => import("../../pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
   import("../../pages/RecipeViewPage/RecipeViewPage")
 );
-// //const AddRecipePage = lazy(() =>
-//   import("../../pages/AddRecipePage/AddRecipePage")
-// );
-//const ProfilePage = lazy(() => import("../../pages/ProfilePage/ProfilePage"));
+const AddRecipePage = lazy(() =>
+  import("../../pages/AddRecipePage/AddRecipePage")
+);
+const ProfilePage = lazy(() => import("../../pages/ProfilePage/ProfilePage"));
 const AuthPage = lazy(() => import("../../pages/AuthPage/AuthPage"));
 const RegisterPage = lazy(() => import("../../pages/AuthPage/RegisterPage"));
 const NotFound = lazy(() => import("../../components/NotFound/NotFound"));
@@ -52,7 +52,8 @@ function App() {
 
           {/* Private routes */}
           <Route path="/auth/logout" element={<PrivateRoute redirectTo="/auth/login" component={<AuthPage />} />}/>
-          {/* <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login"/>}/> */}
+          <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login"/>}/>
+          <Route path="/add-recipe" element={<PrivateRoute component={<AddRecipePage />} redirectTo="/auth/login"/>}/>
             
           {/* Вкладені маршрути
             <Route index element={<Navigate to="own" />} />
