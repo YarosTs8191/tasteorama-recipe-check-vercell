@@ -3,10 +3,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react"; // іконки очей
 import styles from "./RegisterForm.module.css";
-
+import { registerUser } from "../../redux/auth/operations";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const RegisterForm = () => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const initialValues = {
     name: "",
@@ -32,10 +36,10 @@ const RegisterForm = () => {
       .required("Confirm Password is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Registration Data:", values);
-    setTimeout(() => setSubmitting(false), 500);
-    // тут буде запит на бекенд для реєстрації
+  const handleSubmit = (values) => {
+    dispatch(registerUser(values)).then(() => {
+      navigate("/");
+    });
   };
 
   return (
