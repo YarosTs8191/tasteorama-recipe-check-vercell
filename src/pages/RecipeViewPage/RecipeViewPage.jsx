@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipeById, clearRecipe } from "../../redux/recipes/slice.js";
+import { fetchRecipeById, clearRecipe } from "../../redux/recipes/operations.js";
 import RecipeDetails from "../../components/RecipeDetails/RecipeDetails.jsx";
 import NotFound from "../../components/NotFound/NotFound";
 import styles from "./RecipeViewPage.module.css";
