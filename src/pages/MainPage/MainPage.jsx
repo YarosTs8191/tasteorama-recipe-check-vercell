@@ -5,7 +5,7 @@ import {
   selectRecipes,
   selectRecipesError,
   selectRecipesLoading,
-  selectTotalRecipes,
+  selectRecipesTotalPages,
 } from '../../redux/recipes/selectors.js';
 import { selectFiltersError } from '../../redux/filters/selectors.js';
 import { fetchRecipes } from '../../redux/recipes/operations.js';
@@ -24,7 +24,7 @@ export default function MainPage() {
   const dispatch = useDispatch();
 
   const recipes = useSelector(selectRecipes);
-  const totalRecipes = useSelector(selectTotalRecipes);
+  const totalRecipes = useSelector(selectRecipesTotalPages);
   const recipesLoading = useSelector(selectRecipesLoading);
   const recipesError = useSelector(selectRecipesError);
   const filtersError = useSelector(selectFiltersError);

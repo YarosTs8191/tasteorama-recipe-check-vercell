@@ -5,8 +5,8 @@ import {
 } from '../../redux/filters/selectors.js';
 import { useEffect, useState } from 'react';
 import s from './Filters.module.css';
-import sprite from '../../assets/icon/sprite.svg';
-import Select { components } from 'react-select';
+import sprite from '../../../public/sprite.svg';
+import Select, { components } from 'react-select';
 
 export default function Filters({
   onApplyFilters,
@@ -28,8 +28,6 @@ export default function Filters({
 
   const categories = useSelector(selectCategories);
   const ingredients = useSelector(selectIngredients);
-
-  // кастомний дропдаун з бібліотеки react-select
 
   const DropdownIndicator = props => (
     <components.DropdownIndicator {...props}>

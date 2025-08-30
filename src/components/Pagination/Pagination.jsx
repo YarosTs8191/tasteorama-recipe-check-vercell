@@ -1,6 +1,6 @@
 
 import styles from './Pagination.module.css';
-import sprite from '../../assets/icon/sprite.svg';
+import sprite from '../../../public/sprite.svg';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const visiblePages = 6;

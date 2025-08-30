@@ -47,8 +47,8 @@ function App() {
           <Route path="recipes/:recipeId" element={<PublicRoute restricted={false}><RecipeViewPage /></PublicRoute>}/>
           
           {/* {Auth} */}
-          <Route path="auth/login" element={<PublicRoute restricted={true}><AuthPage /></PublicRoute>}/>
-          <Route path="auth/register" element={<PublicRoute restricted={true}><RegisterPage /></PublicRoute>}/>
+          <Route path="/auth/login" element={<PublicRoute restricted={true}><AuthPage /></PublicRoute>}/>
+          <Route path="/auth/register" element={<PublicRoute restricted={true}><RegisterPage /></PublicRoute>}/>
 
           {/* Private routes */}
           <Route path="/auth/logout" element={<PrivateRoute redirectTo="/auth/login" component={<AuthPage />} />}/>

@@ -1,4 +1,4 @@
-import FavoriteButton from "../FavoriteButton/FavoriteButton";
+//import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import css from "./RecipeCard.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -36,9 +36,10 @@ export default function RecipeCard({ recipe }) {
           Learn More
         </button>
 
-        <FavoriteButton
+        {/* <FavoriteButton
           recipeId={recipe._id}
-        /></div>
+        /> */}
+      </div>
     </div>
   );
 }
