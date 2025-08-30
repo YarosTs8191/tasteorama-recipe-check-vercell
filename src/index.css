@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   /* Кольори */
   --black: #000;
@@ -29,9 +35,40 @@
   --red: #c80000;
 
   /* Шрифти */
-  --font-family: "Montserrat", sans-serif;
-  --second-family: "DM Sans", sans-serif;
+  --font-family: 'Montserrat', sans-serif;
+  --second-family: 'DM Sans', sans-serif;
   --fw-regular: 400;
   --fw-semibold: 600;
   --fw-bold: 700;
 }
+
+body{
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+li {
+  list-style: none;
+}
+

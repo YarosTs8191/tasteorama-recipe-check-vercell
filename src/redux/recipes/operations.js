@@ -1,98 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import apiClient from "../../api/api.js";
+import axios from "../../api/axiosInstance";
 
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
-  async (queryParams = {}, thunkAPI) => {
+  async (params, { rejectWithValue }) => {
+    // params: { category, ingredient, search, page, limit }
     try {
-      const { data } = await apiClient.get("/recipes", { params: queryParams });
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+      const query = new URLSearchParams(params).toString();
+      const response = await axios.get(`/recipes?${query}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Fetch recipes failed");
     }
-  },
+  }
 );
 
-export const loadMoreRecipes = createAsyncThunk(
-  "recipes/loadMoreRecipes",
-  async (queryParams = {}, thunkAPI) => {
+export const fetchRecipeById = createAsyncThunk(
+  "recipes/fetchRecipeById",
+  async (recipeId, { rejectWithValue }) => {
     try {
-      const { data } = await apiClient.get("/recipes", { params: queryParams });
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+      const response = await axios.get(`/recipes/${recipeId}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Fetch recipe failed");
     }
-  },
+  }
 );
 
-export const fetchRecipesById = createAsyncThunk(
-  "recipes/fetchRecipesById",
-  async (recipeId, thunkAPI) => {
-    try {
-      const { data } = await apiClient.get(`/recipes/${recipeId}`);
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
-
-export const fetchAddRecipe = createAsyncThunk(
-  "recipes/fetchAddRecipe",
-  async (newRecipe, thunkAPI) => {
-    try {
-      const { data } = await apiClient.post("/recipes", newRecipe);
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
-
-export const fetchOwnRecipes = createAsyncThunk(
-  "recipes/fetchOwnRecipes",
-  async (_, thunkAPI) => {
-    try {
-      const { data } = await apiClient.get("/recipes/user");
-      return data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
-
-export const fetchFavoriteRecipes = createAsyncThunk(
-  "recipes/fetchFavoriteRecipes",
-  async (_, thunkAPI) => {
-    try {
-      const { data } = await apiClient.get("/recipes/favorite");
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
-
-export const fetchAddRecipesToFavorite = createAsyncThunk(
-  "recipes/fetchAddRecipesToFavorite",
-  async (recipeId, thunkAPI) => {
-    try {
-      const { data } = await apiClient.post("/recipes/favorite", { recipeId });
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
-
-export const fetchDeleteRecipesFromFavorite = createAsyncThunk(
-  "recipes/fetchDeleteRecipesFromFavorite",
-  async (recipeId, thunkAPI) => {
-    try {
-      const { data } = await apiClient.delete(`/recipes/favorite/${recipeId}`);
-      return data.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
+// Можна додати createRecipe, updateFavorite тощо
