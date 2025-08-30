@@ -2,12 +2,12 @@
   position: relative;
   height: 443px;
   overflow: hidden;
-  margin-left: -16px;
-  margin-right: -16px;
-  width: calc(100% + 32px);
-  background-color: #413f3f;
   z-index: 0;
+  font-family: var(--font-family);
 }
+
+
+
 @media screen and (min-width: 768px) {
   .container {
     margin-left: -32px;
@@ -15,11 +15,10 @@
     width: calc(100% + 64px);
   }
 }
+
 @media screen and (min-width: 1440px) {
   .container {
-    margin-left: -107px;
-    margin-right: -107px;
-    width: calc(100% + 214px);
+
   }
 }
 .backgroundImage {

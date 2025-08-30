@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import LogoutBtn from '../LogoutBtn/LogoutBtn';
+import LogoutBtn from '../LogoutButton/LogoutButton';
 import styles from './Navigation.module.css';
 import UserInfo from '../UserInfo/UserInfo';
 

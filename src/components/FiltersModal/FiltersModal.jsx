@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import Filters from '../Filters/Filters.jsx';
 Modal.setAppElement('#root');
 import s from './FiltersModal.module.css';
-import sprite from '../../assets/icon/sprite.svg';
+import sprite from '../../../public/sprite.svg';
 
 const FiltersModal = ({
   isOpen,
