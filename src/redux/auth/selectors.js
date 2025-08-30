@@ -1,4 +1,6 @@
-export const selectIsRefreshing = state => state.auth.isRefreshing;
+export const selectAuthUser = (state) => state.auth.user;
+export const selectToken = (state) => state.auth.token;
+export const selectAuthLoading = (state) => state.auth.loading;
+export const selectAuthError = (state) => state.auth.error;
 export const selectIsLoggedIn = state => state.auth.isLoggedIn;
-export const selectUser = state => state.auth.user;
-export const selectLoadToFavorite = (state) => state.auth.loadToFavorite;
+export const selectIsRefreshing = state => state.auth.isRefreshing;
