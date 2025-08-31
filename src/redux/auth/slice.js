@@ -63,7 +63,7 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.isLoggedIn = false; 
+        state.IsLoggedIn = false; 
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
