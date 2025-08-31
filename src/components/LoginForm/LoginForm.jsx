@@ -4,8 +4,12 @@ import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // ⬅️ Додано для редіректу
 import styles from "./LoginForm.module.css";
+import {loginUser} from "../../redux/auth/operations";
+import { useDispatch } from 'react-redux';
+
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate(); // ⬅️ Ініціалізація навігатора
 
@@ -23,16 +27,25 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Login Data:", values);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
 
-    // Імітація API-запиту / логіну
-    setTimeout(() => {
-      setSubmitting(false);
+    dispatch(
+      loginUser({
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        console.log('login success');
+      })
+      .catch(() => {
+        console.log('login error');
+      });
 
-      // ✅ Після логіну перенаправляємо на домашню сторінку
-      navigate("/");
-    }, 500);
+    form.reset();
   };
 
   return (
