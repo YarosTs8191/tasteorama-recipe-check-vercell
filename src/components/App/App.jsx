@@ -1,11 +1,11 @@
-import { useEffect, lazy, Suspense } from "react";
+import {  lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import Layout from "../Layout/Layout";
 import PublicRoute from "../PublicRoute";
 import PrivateRoute from "../PrivateRoute";
 import { selectIsRefreshing } from "../../redux/auth/selectors.js";
-import { refreshUser } from "../../redux/auth/operations.js";
+// import { refreshUser } from "../../redux/auth/operations.js";
 
 const MainPage = lazy(() => import("../../pages/MainPage/MainPage"));
 const RecipeViewPage = lazy(() =>
@@ -20,15 +20,15 @@ const RegisterPage = lazy(() => import("../../pages/AuthPage/RegisterPage"));
 const NotFound = lazy(() => import("../../components/NotFound/NotFound"));
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token"); // перевіряємо, чи є токен
-    if (token) {
-      dispatch(refreshUser());
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token"); // перевіряємо, чи є токен
+  //   if (token) {
+  //     dispatch(refreshUser());
+  //   }
+  // }, [dispatch]);
 
   if (isRefreshing) {
     return <p>Loading...</p>;
@@ -42,6 +42,7 @@ function App() {
           
           {/* Public routes */}
           <Route
+            path="/"
             index
             element={
               <PublicRoute restricted={false}>
@@ -49,8 +50,16 @@ function App() {
               </PublicRoute>
             }
           />
+          {/* <Route
+            path="/recipes"
+            element={
+              <PublicRoute restricted={false}>
+                <RecipeViewPage />
+              </PublicRoute>
+            }
+          /> */}
           <Route
-            path="recipes/:recipeId"
+            path="/recipes/:recipeId"
             element={
               <PublicRoute restricted={false}>
                 <RecipeViewPage />
@@ -84,7 +93,7 @@ function App() {
             }
           />
           <Route
-            path="/profile"
+            path="/users/me"
             element={
               <PrivateRoute
                 component={<ProfilePage />}

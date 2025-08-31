@@ -1,24 +1,17 @@
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import RecipeCard from '../RecipeCard/RecipeCard.jsx';
 import { selectRecipesLoading } from '../../redux/recipes/selectors.js';
 import css from './RecipeList.module.css';
-import {fetchRecipes} from "../../redux/recipes/operations.js";
+import Loader from "../Loader/Loader.jsx";
 
 export default function RecipeList({ recipes }) {
-    const dispatch = useDispatch();
-    useEffect(() => {
-    dispatch(fetchRecipes());
-  }, [dispatch]);
-
    const loading = useSelector(selectRecipesLoading);
 
     if (loading) return <Loader/>;
 
     return (
         <div>
-            <p className={css.recipesCount}>{recipesCount}</p>
+            <p className={css.recipesCount}>{recipes.length} recipes</p>
 
             <ul className={css.recipeList}>
                 {recipes.map((recipe) => (

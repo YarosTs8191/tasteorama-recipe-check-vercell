@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   registerUser,
   loginUser,
-  fetchCurrentUser,
   logoutUser,
 } from "./operations";
 import { notifyError, notifySuccess } from "../utils/notifications";
@@ -56,19 +55,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         notifyError(action.payload);
-      })
-      // Fetch current user
-      .addCase(fetchCurrentUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(fetchCurrentUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
       })
       // Logout
       .addCase(logoutUser.fulfilled, (state) => {

@@ -7,9 +7,8 @@ export default function RecipeCard({ recipe }) {
   const navigate = useNavigate();
 
   const handleLearnMoreClick = () => {
-    navigate(`/recipes/${_id}`);
+    navigate(`/recipes/${recipe._id}`);
   };
-
 
   return (
     <div className={css.recipeCard}>

@@ -25,21 +25,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const fetchCurrentUser = createAsyncThunk(
-  "users/me",
-  async (_, { rejectWithValue, getState }) => {
-    try {
-      const { token } = getState().auth;
-      const response = await axios.get("/users/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Fetch user failed");
-    }
-  }
-);
-
 export const logoutUser = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue, getState }) => {
