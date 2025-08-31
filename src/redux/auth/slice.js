@@ -78,7 +78,7 @@ const authSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.token = null;
-        state.isLoggedIn = false; 
+        state.isLoggedIn = true; 
         notifySuccess("Logout successful");
       });
   },
