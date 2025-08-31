@@ -27,22 +27,22 @@ const LoginForm = () => {
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-    try {
-      await dispatch(
-        loginUser({
-          email: values.email,
-          password: values.password,
-        })
-      ).unwrap();
-      console.log("login success");
-      resetForm();
-      navigate("/dashboard"); // або інший шлях після входу
-    } catch (error) {
-      console.log("login error");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  try {
+    const data = await dispatch(loginUser({
+      email: values.email,
+      password: values.password
+    })).unwrap();
+
+    localStorage.setItem("token", data.token); // <-- зберігаємо токен
+    resetForm();
+    navigate("/dashboard");
+  } catch (error) {
+    console.log("login error");
+  } finally {
+    setSubmitting(false);
+  }
+};
+
 
   return (
     <div className={styles.container}>
