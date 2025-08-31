@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // ⬅️ Додано для редіректу
+import { useNavigate, Link } from "react-router-dom"; // <- додано Link
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../redux/auth/operations";
 import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // ⬅️ Ініціалізація навігатора
 
   const initialValues = {
     email: "",
@@ -23,22 +26,27 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Login Data:", values);
-
-    // Імітація API-запиту / логіну
-    setTimeout(() => {
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+    try {
+      await dispatch(
+        loginUser({
+          email: values.email,
+          password: values.password,
+        })
+      ).unwrap();
+      console.log("login success");
+      resetForm();
+      navigate("/dashboard"); // або інший шлях після входу
+    } catch (error) {
+      console.log("login error");
+    } finally {
       setSubmitting(false);
-
-      // ✅ Після логіну перенаправляємо на домашню сторінку
-      navigate("/");
-    }, 500);
+    }
   };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Login</h2>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -99,9 +107,9 @@ const LoginForm = () => {
 
             <p className={styles.registerText}>
               Don’t have an account?{" "}
-              <a href="auth/register" className={styles.registerLink}>
+              <Link to="/auth/register" className={styles.registerLink}>
                 Register
-              </a>
+              </Link>
             </p>
           </Form>
         )}
