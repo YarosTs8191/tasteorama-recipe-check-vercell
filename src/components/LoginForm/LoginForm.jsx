@@ -28,17 +28,22 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Login Data:", values);
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+  try {
+    const data = await dispatch(loginUser({
+      email: values.email,
+      password: values.password
+    })).unwrap();
 
-    // Імітація API-запиту / логіну
-    setTimeout(() => {
-      setSubmitting(false);
-
-      // ✅ Після логіну перенаправляємо на домашню сторінку
-      navigate("/");
-    }, 500);
-  };
+    localStorage.setItem("token", data.token); // <-- зберігаємо токен
+    resetForm();
+    navigate("/dashboard");
+  } catch (error) {
+    console.log("login error");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className={styles.container}>
