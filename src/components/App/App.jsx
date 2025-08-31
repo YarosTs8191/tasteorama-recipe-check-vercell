@@ -55,10 +55,10 @@ function App() {
           <Route path="/profile" element={<PrivateRoute component={<ProfilePage />} redirectTo="/auth/login"/>}/>
           <Route path="/add-recipe" element={<PrivateRoute component={<AddRecipePage />} redirectTo="/auth/login"/>}/>
             
-          {/* Вкладені маршрути
+          {/* Вкладені маршрути*
             <Route index element={<Navigate to="own" />} />
             <Route path="/own" element={<OwnRecipesPage />} />
-            <Route path="/favorites" element={<FavoriteRecipesPage />} /> */}
+            <Route path="/favorites" element={<FavoriteRecipesPage />} /> }
 
           {/* Not found */}
           <Route path="*" element={<NotFound />} />

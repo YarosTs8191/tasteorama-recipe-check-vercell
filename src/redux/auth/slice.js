@@ -50,7 +50,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.isLoggedIn = true; 
+        state.IsLoggedIn = true; 
         notifySuccess("Login successful");
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -78,7 +78,7 @@ const authSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.token = null;
-        state.isLoggedIn = true; 
+        state.IsLoggedIn = true; 
         notifySuccess("Logout successful");
       });
   },
