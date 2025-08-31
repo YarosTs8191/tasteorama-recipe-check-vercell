@@ -1,48 +1,21 @@
 .page {
   padding: 16px;
-  max-width: 393px; /* під мобайл */
+  max-width: 393px;
   margin: 0 auto;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 12px;
+@media (min-width: 768px) {
+  .page {
+    max-width: 768px;
+    padding: 24px;
+  }
 }
-
-.imageWrapper {
-  margin-bottom: 16px;
-}
-
-.image {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.infoBox {
-  background: #f7f3eb;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 16px;
-}
-
-.subtitle {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.saveBtn {
-  display: block;
-  width: 100%;
-  margin-top: 12px;
-  padding: 8px;
-<<<<<<< HEAD
-  background-color: #a0522d;
-=======
-  background-color: #a0522d; /* коричневий як у макеті */
->>>>>>> rescue-work
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+@media (min-width: 1224px) {
+  .page {
+    max-width: 1224px;
+    padding: 32px;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
 }
