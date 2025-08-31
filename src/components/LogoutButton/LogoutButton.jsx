@@ -1,22 +1,29 @@
-import { useDispatch } from "react-redux";
-import { logOut } from "../../redux/auth/operations";
-import { useNavigate } from "react-router-dom";
+import styles from './LogoutButton.module.css';
+import sprite from '../../../public/sprite.svg';
+import { useState } from 'react';
+import ModalLogout from '../ModalLogout/ModalLogout.jsx';
 
-const LogoutButton = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await dispatch(logOut()).unwrap();
-    } catch (error) {
-      console.error("Logout error:", error);
-    } finally {
-      navigate("/");
-    }
+export default function LogoutButton({ onBurgerModalClose }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
-  return <button onClick={handleLogout}>Вийти</button>;
-};
-
-export default LogoutButton;
+  return (
+    <>
+      <button className={styles.logout} onClick={handleOpenModal}>
+        <svg className={styles.logoutBtn}>
+          <use href={`${sprite}#exit_logo`} />
+        </svg>
+      </button>
+      <ModalLogout
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        onBurgerModalClose={onBurgerModalClose}
+      />
+    </>
+  );
+}

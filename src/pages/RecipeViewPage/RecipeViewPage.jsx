@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecipeById, clearRecipe } from "../../redux/recipes";
-import RecipeDetails from "../../components/RecipeDetails";
-import NotFound from "../../components/NotFound";
+import RecipeDetails from "../../components/RecipeDetails/RecipeDetails";
+import NotFound from "../../components/NotFound/NotFound";
 import styles from "./RecipeViewPage.module.css";
 
 export default function RecipeViewPage() {
@@ -17,7 +17,7 @@ export default function RecipeViewPage() {
   // Коли сторінка завантажується – робимо запит
   useEffect(() => {
     if (recipeId) {
-      dispatch(fetchRecipeById(id));
+      dispatch(fetchRecipeById(recipeId));
     }
 
     // При виході зі сторінки – очищаємо state

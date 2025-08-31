@@ -1,6 +1,6 @@
 .container {
   max-width: 362px;
-  /* height: 646px; */
+  min-height: 646px;
   box-sizing: border-box;
   margin: 56px auto;
   padding: 48px 32px;
@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* flex: 1; */
 }
 .paragraph {
   font-family: var(--font-family);
@@ -86,11 +87,11 @@
 }
 
 .eyeIcon {
-  color: #777;
+  color: var(--gray);
 }
 
 .error {
-  color: #d9534f;
+  color: var(--red);
   font-size: 13px;
   margin-top: 4px;
 }
@@ -227,5 +228,6 @@
 @media screen and (min-width: 1440px) {
   .container {
     max-width: 420px;
+    margin: 52px auto 34px auto;
   }
 }

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { closeModal } from '../../redux/modal/slice';
 import { selectModal } from '../../redux/modal/selectors';
-import iconSprite from '../../icons/icons.svg';
+import iconSprite from '../../../public/sprite.svg';
 
 export default function AuthModal() {
   const { isModalOpen } = useSelector(selectModal);
@@ -40,7 +40,7 @@ export default function AuthModal() {
           onClick={onClose}
         >
           <svg className={styles.modalIcon} width={24} height={24}>
-            <use href={`${iconSprite}#icon-close`}></use>
+            <use href={`${iconSprite}#exit_logo`}></use>
           </svg>
         </button>
         <h2 className={styles.modalTitle}>Interaction Error </h2>
