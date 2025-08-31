@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Eye, EyeOff } from "lucide-react"; // іконки очей
+import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // ⬅️ Додано для редіректу
 import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate(); // ⬅️ Ініціалізація навігатора
 
   const initialValues = {
     email: "",
@@ -23,7 +25,14 @@ const LoginForm = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log("Login Data:", values);
-    setTimeout(() => setSubmitting(false), 500);
+
+    // Імітація API-запиту / логіну
+    setTimeout(() => {
+      setSubmitting(false);
+
+      // ✅ Після логіну перенаправляємо на домашню сторінку
+      navigate("/");
+    }, 500);
   };
 
   return (
