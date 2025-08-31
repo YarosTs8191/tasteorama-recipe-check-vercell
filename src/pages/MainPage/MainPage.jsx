@@ -64,7 +64,7 @@ export default function MainPage() {
         ingredient: currentFilters.ingredient,
         search: searchQuery,
         page,
-        perPage: RECIPES_PER_PAGE,
+        limit: RECIPES_PER_PAGE,
       })
     );
   }, [dispatch, currentFilters.category, currentFilters.ingredient, searchQuery, page]);
@@ -144,8 +144,8 @@ export default function MainPage() {
 
           {recipesLoading && <Loader />}
 
-          {!recipesLoading && !recipesError && recipes.length > 0 && (
-            <RecipeList recipes={recipes} />
+          {!recipesLoading && !recipesError && recipes.recipes.length > 0 && (
+            <RecipeList recipes={recipes.recipes} />
           )}
 
           {recipes.length > 0 && !recipesLoading && (

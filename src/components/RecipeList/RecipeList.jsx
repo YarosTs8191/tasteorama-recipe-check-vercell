@@ -11,7 +11,7 @@ export default function RecipeList({ recipes }) {
 
     return (
         <div>
-            <p className={css.recipesCount}>{recipes.length} recipes</p>
+            {/* <p className={css.recipesCount}></p> */}
 
             <ul className={css.recipeList}>
                 {recipes.map((recipe) => (
