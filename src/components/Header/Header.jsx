@@ -1,68 +1,44 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import LogoutButton from "../LogoutButton/LogoutButton";
-import styles from "./Header.module.css"; // твій CSS модуль
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+//import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import sprite from '../../assets/icons/icons.svg';
+import s from './Header.module.css';
+import BurgerModal from '../BurgerModal/BurgerModal';
+import Navigation from '../Navigation/Navigation';
+import { Link } from 'react-router-dom';
 
-const Header = () => {
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
+export default function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const toggleModal = () => {
+    setIsModalOpen(prev => !prev);
+  };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>
-        <NavLink to="/">Tasteorama</NavLink>
+    <header className={s.header}>
+      <div className={s.container}>
+        <Link to="/" className={s.logoLink}>
+          <svg className={s.logo}>
+            <use href={`${sprite}#icon-logo`} />
+          </svg>
+          <span className={s.title}>Tasteorama</span>
+        </Link>
+        <Navigation isLoggedIn={isLoggedIn} />
+        <button
+          className={s.burgerBtn}
+          aria-label="Open mobile menu"
+          onClick={toggleModal}
+        >
+          <svg className={s.burger}>
+            <use href={`${sprite}#icon-burger`} />
+          </svg>
+        </button>
       </div>
 
-      <nav className={styles.nav}>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? styles.active : "")}
-        >
-          Рецепти
-        </NavLink>
-
-        {isLoggedIn ? (
-          <>
-            <NavLink
-              to="/profile/own"
-              className={({ isActive }) => (isActive ? styles.active : "")}
-            >
-              Мій профіль
-            </NavLink>
-            <NavLink
-              to="/add-recipe"
-              className={({ isActive }) => (isActive ? styles.active : "")}
-            >
-              Додати рецепт
-            </NavLink>
-
-            <div className={styles.userInfo}>
-              <div className={styles.avatar}>
-                {user?.name ? user.name[0].toUpperCase() : "U"}
-              </div>
-              <span className={styles.userName}>{user?.name || "User"}</span>
-              <LogoutButton />
-            </div>
-          </>
-        ) : (
-          <>
-            <NavLink
-              to="/auth/login"
-              className={({ isActive }) => (isActive ? styles.active : "")}
-            >
-              Увійти
-            </NavLink>
-            <NavLink
-              to="/auth/register"
-              className={({ isActive }) => (isActive ? styles.active : "")}
-            >
-              Зареєструватися
-            </NavLink>
-          </>
-        )}
-      </nav>
+      {isModalOpen && (
+        <BurgerModal onClose={toggleModal} isLoggedIn={isLoggedIn} />
+      )}
     </header>
   );
 };
-
-export default Header;
