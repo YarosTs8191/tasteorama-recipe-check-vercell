@@ -19,8 +19,8 @@ const ProfilePage = lazy(() => import("../../pages/ProfilePage/ProfilePage"));
 const AuthPage = lazy(() => import("../../pages/AuthPage/AuthPage"));
 const RegisterPage = lazy(() => import("../../pages/AuthPage/RegisterPage"));
 const NotFound = lazy(() => import("../../components/NotFound/NotFound"));
-//const OwnRecipesPage = lazy(() => import('../OwnRecipesPage/OwnRecipesPage.jsx'));
-//const FavoriteRecipesPage = lazy(() => import('../FavoriteRecipesPage/FavoriteRecipesPage.jsx'));
+// const OwnRecipesPage = lazy(() => import('../OwnRecipesPage/OwnRecipesPage.jsx'));
+// const FavoriteRecipesPage = lazy(() => import('../FavoriteRecipesPage/FavoriteRecipesPage.jsx'));
 
 function App() {
   const dispatch = useDispatch();

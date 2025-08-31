@@ -1,22 +1,21 @@
 .container {
-    width: 420px;
-    height: 398px;
-    margin: 100px auto;
-    padding: 40px 32px;
-    background: #fef8ee;
-    /* бежевий фон */
+    width: 362px;
+    min-height: 399px;
+    margin: 91px auto;
+    padding: 48px 32px;
+    background: #faf3e0;
     border-radius: 20px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
 }
 
 .title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 30px;
+    font: 600 32px var(--font-family);
+    margin:0 0 24px; 
     color: #111;
 }
 
@@ -31,18 +30,17 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-size: 14px;
+    font: 400 12px var(--font-family);
     color: #333;
 }
 
-/* однаковий розмір інпутів */
 .input {
     width: 100%;
     box-sizing: border-box;
     padding: 14px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    font-size: 16px;
+    font: 400 16px / 155% var(--font-family);
     outline: none;
     transition: border-color 0.2s;
 }
@@ -51,7 +49,6 @@
     border-color: #8c6239;
 }
 
-/* щоб eye icon не ламала ширину */
 .passwordWrapper {
     width: 100%;
     position: relative;
@@ -59,10 +56,8 @@
 
 .passwordWrapper .input {
     padding-right: 40px;
-    /* місце під іконку */
 }
 
-/* око */
 .eyeButton {
     position: absolute;
     right: 12px;
@@ -84,7 +79,6 @@
     margin-top: 4px;
 }
 
-/* кнопка */
 .button {
     width: 100%;
     padding: 14px;
@@ -109,7 +103,7 @@
 
 .registerText {
     margin-top: 20px;
-    font-size: 14px;
+    font: 400 16px / 155% var(--font-family);
     color: #111;
     text-align: center;
 }
@@ -121,7 +115,29 @@
     cursor: pointer;
 }
 
-/* щоб замінити точки на зірочки */
 .input[type="password"] {
     -webkit-text-security: "*";
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        width: 522px;
+        min-height: 399px;
+        margin: 222px auto;
+    }
+
+    .title {
+        font-size: 28px;
+        margin-bottom: 28px;
+    }
+}
+
+
+@media (min-width: 1440px) {
+    .container {
+        width: 420px;
+        min-height: 398px;
+        margin: 137px auto;
+    }
 }
