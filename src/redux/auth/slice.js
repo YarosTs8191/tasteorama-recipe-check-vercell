@@ -29,7 +29,6 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        // універсальна логіка: якщо бекенд повернув user/token – збережемо
         if (action.payload?.user && action.payload?.token) {
           state.user = action.payload.user;
           state.token = action.payload.token;
@@ -50,6 +49,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.IsLoggedIn = true; 
         notifySuccess("Login successful");
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -76,6 +76,7 @@ const authSlice = createSlice({
         state.token = null;
         state.loading = false;
         state.error = null;
+        state.IsLoggedIn = true; 
         notifySuccess("Logout successful");
       });
   },

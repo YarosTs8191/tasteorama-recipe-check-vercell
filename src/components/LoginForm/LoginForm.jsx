@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // ⬅️ Додано для редіректу
+import { useNavigate, Link } from "react-router-dom"; // <- додано Link
+// import { useDispatch } from "react-redux";
+// import { loginUser } from "../../redux/auth/operations";
 import styles from "./LoginForm.module.css";
-import {loginUser} from "../../redux/auth/operations";
-import { useDispatch } from 'react-redux';
+// import {loginUser} from "../../redux/auth/operations";
+// import { useDispatch } from 'react-redux';
 
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // ⬅️ Ініціалізація навігатора
 
   const initialValues = {
     email: "",
@@ -27,31 +28,21 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const handleSubmit = (values, { setSubmitting }) => {
+    console.log("Login Data:", values);
 
-    dispatch(
-      loginUser({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        console.log('login success');
-      })
-      .catch(() => {
-        console.log('login error');
-      });
+    // Імітація API-запиту / логіну
+    setTimeout(() => {
+      setSubmitting(false);
 
-    form.reset();
+      // ✅ Після логіну перенаправляємо на домашню сторінку
+      navigate("/");
+    }, 500);
   };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Login</h2>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -112,9 +103,9 @@ const LoginForm = () => {
 
             <p className={styles.registerText}>
               Don’t have an account?{" "}
-              <a href="auth/register" className={styles.registerLink}>
+              <Link to="/auth/register" className={styles.registerLink}>
                 Register
-              </a>
+              </Link>
             </p>
           </Form>
         )}
