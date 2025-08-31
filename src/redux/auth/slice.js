@@ -6,16 +6,12 @@ import {
   logoutUser,
 } from "./operations";
 import { notifyError, notifySuccess } from "../utils/notifications";
-
-
 const initialState = {
   user: null,
   token: null,
   loading: false,
   error: null,
-  IsLoggedIn: false,
 };
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -31,8 +27,12 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
+        if (action.payload?.user && action.payload?.token) {
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+        }
         notifySuccess("Registration successful");
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -40,7 +40,6 @@ const authSlice = createSlice({
         state.error = action.payload;
         notifyError(action.payload);
       })
-
       // Login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
@@ -58,12 +57,10 @@ const authSlice = createSlice({
         state.error = action.payload;
         notifyError(action.payload);
       })
-
       // Fetch current user
       .addCase(fetchCurrentUser.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.IsLoggedIn = false; 
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -73,16 +70,16 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
       // Logout
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.token = null;
+        state.loading = false;
+        state.error = null;
         state.IsLoggedIn = true; 
         notifySuccess("Logout successful");
       });
   },
 });
-
 export const { clearError } = authSlice.actions;
 export default authSlice.reducer;

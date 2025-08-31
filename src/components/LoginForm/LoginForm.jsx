@@ -3,12 +3,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom"; // <- додано Link
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../redux/auth/operations";
+// import { useDispatch } from "react-redux";
+// import { loginUser } from "../../redux/auth/operations";
 import styles from "./LoginForm.module.css";
+// import {loginUser} from "../../redux/auth/operations";
+// import { useDispatch } from 'react-redux';
+
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -42,7 +44,6 @@ const LoginForm = () => {
     setSubmitting(false);
   }
 };
-
 
   return (
     <div className={styles.container}>
