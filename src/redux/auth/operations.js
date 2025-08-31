@@ -5,7 +5,7 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/auth/register", userData);
+      const response = await axios.post("/auth/register", userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Registration failed");
@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/auth/login", credentials);
+      const response = await axios.post("/auth/login", credentials);
       return response.data; // Очікуємо { user, token }
     } catch (error) {
       return rejectWithValue(error.response?.data || "Login failed");
@@ -30,7 +30,7 @@ export const fetchCurrentUser = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
-      const response = await axios.get("/api/users/me", {
+      const response = await axios.get("/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
@@ -46,7 +46,7 @@ export const logoutUser = createAsyncThunk(
     try {
       const { token } = getState().auth;
       await axios.post(
-        "/api/auth/logout",
+        "/auth/logout",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -62,7 +62,7 @@ export const refreshUser = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
-      const response = await axios.get("/api/users/me", {
+      const response = await axios.get("/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
