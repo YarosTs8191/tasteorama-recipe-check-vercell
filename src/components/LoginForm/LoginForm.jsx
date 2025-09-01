@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from "react-router-dom"; // <- додано Link
 import styles from "./LoginForm.module.css";
-import { loginUser } from "../../redux/auth/operations";
+import {loginUser} from "../../redux/auth/operations";
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const LoginForm = () => {
@@ -26,28 +26,6 @@ const LoginForm = () => {
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
   });
-
-  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-    try {
-      const data = await dispatch(
-        loginUser({
-          email: values.email,
-          password: values.password
-        })
-      ).unwrap();
-
-      // Зберігаємо токен
-      localStorage.setItem("token", data.token);
-      
-
-      // Зберігаємо об’єкт користувача для хедера
-      // data.user має містити { name, email, id }
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      resetForm();
-      navigate("/");
-    } catch (error) {
-      console.log("Login error:", error);
 
 const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -110,7 +88,11 @@ const handleSubmit = async (values, { setSubmitting, resetForm }) => {
                   className={styles.eyeButton}
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                  {showPassword ? (
+                    <Eye size={20} className={styles.eyeIcon} />
+                  ) : (
+                    <EyeOff size={20} className={styles.eyeIcon} />
+                  )}
                 </button>
               </div>
               <ErrorMessage
