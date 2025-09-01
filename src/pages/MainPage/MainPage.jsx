@@ -161,11 +161,14 @@ export default function MainPage() {
 
           {recipesLoading && <Loader />}
 
+          const recipes={recipes.recipes};
+
           {!recipesLoading && !recipesError && recipes.length > 0 && (
 
             <RecipeList recipes={recipes.recipes} />
           )}
 
+          <RecipeList recipes={recipes.recipes} />
           {recipes.length > 0 && !recipesLoading && (
             <Pagination
               currentPage={page}
