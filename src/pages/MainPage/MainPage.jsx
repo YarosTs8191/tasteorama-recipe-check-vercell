@@ -161,8 +161,7 @@ export default function MainPage() {
 
           {recipesLoading && <Loader />}
 
-          {!recipesLoading && !recipesError && recipes.length > 0 && (
-
+          {!recipesLoading && !recipesError && recipes.recipes > 0 && (
             <RecipeList recipes={recipes.recipes} />
           )}
 
