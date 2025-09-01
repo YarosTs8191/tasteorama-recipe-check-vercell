@@ -1,12 +1,16 @@
-export async function fetchRecipes({ page = 1, limit = 12, query, category } = {}) {
-  const base = import.meta.env.VITE_API_URL || ''; 
-  const url = new URL('/api/recipes', base);       
-  url.searchParams.set('page', page);
-  url.searchParams.set('limit', limit);
-  if (query) url.searchParams.set('query', query);
-  if (category) url.searchParams.set('category', category);
+import { api } from './api.js';
 
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Failed to load recipes');
-  return res.json();
-}
+export const getRecipeByIdAPI = async id => {
+  const response = await api.get(`api/recipes/${id}`);
+  return response.data;
+};
+
+export const addFavoriteAPI = async id => {
+  const response = await api.post(`api/recipes/favorites/${id}`);
+  return response.data;
+};
+
+export const removeFavoriteAPI = async id => {
+  const response = await api.delete(`api/recipes/favorites/${id}`);
+  return response.data;
+};

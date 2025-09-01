@@ -66,7 +66,7 @@ export default function MainPage() {
         ingredient: currentFilters.ingredient,
         search: searchQuery,
         page: page,
-        perPage: RECIPES_PER_PAGE,
+        limit: RECIPES_PER_PAGE,
       })
     );
   }, [
