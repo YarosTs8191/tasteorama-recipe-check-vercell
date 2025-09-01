@@ -6,20 +6,18 @@ import AuthModal from '../AuthModal/AuthModal';
 import iconSprite from '../../../public/sprite.svg';
 
 export default function Footer() {
-  const loggedIn = useSelector(state =>
-    Boolean(state?.auth?.isLoggedIn ?? state?.auth?.IsLoggedIn)
-  );
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const isAuthPage =
     location.pathname.includes('auth/login') ||
     location.pathname.includes('auth/register');
 
+  const dispatch = useDispatch();
 
   const handleClick = e => {
-    if (!loggedIn) {
+    if (!isLoggedIn) {
       e.preventDefault();
       dispatch(openModal({ type: 'auth' }));
     }
@@ -50,7 +48,7 @@ export default function Footer() {
           </nav>
         </div>
       </footer>
-      {!loggedIn && !isAuthPage && <AuthModal />}
+      <AuthModal />
     </>
   );
 }
