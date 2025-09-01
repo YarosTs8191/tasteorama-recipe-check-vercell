@@ -1,5 +1,3 @@
-// src/redux/recipes/recipesSelectors.js
-
 export const selectRecipes = (state) => state.recipes.items;
 
 export const selectCurrentRecipe = (state) => state.recipes.currentRecipe;
@@ -19,3 +17,9 @@ export const selectRecipesPagination = (state) => ({
   perPage: state.recipes.perPage,
   totalPages: state.recipes.totalPages,
 });
+
+export const selectFavoriteRecipes = (state) => state.recipes.favoriteItems;
+
+export const selectFavoriteRecipesLoading = (state) => state.recipes.loading;
+
+export const selectFavoriteRecipesError = (state) => state.recipes.error;

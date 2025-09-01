@@ -57,13 +57,29 @@ export const updateFavorite = createAsyncThunk(
   "recipes/updateFavorite",
   async ({ recipeId, isFavorite }, { rejectWithValue }) => {
     try {
-      // Припустимо, бекенд приймає PATCH на цей endpoint для оновлення статусу "обране"
       const response = await axios.patch(`/recipes/${recipeId}/favorite`, {
         isFavorite,
       });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Update favorite failed");
+    }
+  }
+);
+
+// =======================
+// FETCH FAVORITE RECIPES
+// =======================
+export const fetchFavoriteRecipes = createAsyncThunk(
+  "recipes/fetchFavoriteRecipes",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/recipes/favorite");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Fetch favorite recipes failed"
+      );
     }
   }
 );

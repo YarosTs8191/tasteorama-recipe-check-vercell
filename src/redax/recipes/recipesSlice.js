@@ -6,12 +6,14 @@ import {
   fetchRecipeById,
   createRecipe,
   updateFavorite,
+  fetchFavoriteRecipes, // імпортуємо новий thunk
 } from "./recipesThunks";
 import { notifyError, notifySuccess } from "../utils/notifications";
 
 const initialState = {
   items: [],
   currentRecipe: null,
+  favoriteItems: [], // додано для обраних рецептів
   loading: false,
   error: null,
   page: 1,
@@ -42,7 +44,6 @@ const recipesSlice = createSlice({
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.loading = false;
-        // Якщо бекенд повертає обʼєкт з data і пагінацією
         state.items = action.payload.data || action.payload;
 
         if (action.payload.page) {
@@ -83,7 +84,7 @@ const recipesSlice = createSlice({
       })
       .addCase(createRecipe.fulfilled, (state, action) => {
         state.loading = false;
-        state.items.unshift(action.payload); // додаємо новий рецепт на початок списку
+        state.items.unshift(action.payload);
         notifySuccess("Рецепт успішно створений!");
       })
       .addCase(createRecipe.rejected, (state, action) => {
@@ -114,9 +115,36 @@ const recipesSlice = createSlice({
           state.currentRecipe = updatedRecipe;
         }
 
+        // Оновлюємо список улюблених рецептів локально
+        const favIndex = state.favoriteItems.findIndex(
+          (r) => r._id === updatedRecipe._id
+        );
+        if (updatedRecipe.isFavorite) {
+          if (favIndex === -1) state.favoriteItems.push(updatedRecipe);
+        } else {
+          if (favIndex !== -1) state.favoriteItems.splice(favIndex, 1);
+        }
+
         notifySuccess("Статус обраного оновлено!");
       })
       .addCase(updateFavorite.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        notifyError(action.payload);
+      })
+
+      // =======================
+      // FETCH FAVORITE RECIPES
+      // =======================
+      .addCase(fetchFavoriteRecipes.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
+        state.loading = false;
+        state.favoriteItems = action.payload;
+      })
+      .addCase(fetchFavoriteRecipes.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         notifyError(action.payload);
