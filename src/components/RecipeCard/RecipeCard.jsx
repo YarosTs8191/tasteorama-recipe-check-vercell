@@ -1,4 +1,4 @@
-//import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import FavoriteButton from "./FavoriteButton/FavoriteButton.jsx";
 import css from "./RecipeCard.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -29,15 +29,18 @@ export default function RecipeCard({ recipe }) {
       </div>
 
       <p className={css.recipeDescription}>{recipe.description}</p>
-      <p className={css.recipeCalories}>~{recipe.cals} kcal</p>
+      <p className={css.recipeCalories}>
+       {recipe.cals ? `~${recipe.cals} kcal` : "- kcal"}
+      </p>
+
       <div className={css.foot}>
         <button className={css.viewRecipeButton} onClick={handleLearnMoreClick}>
           Learn More
         </button>
 
-        {/* <FavoriteButton
+         <FavoriteButton
           recipeId={recipe._id}
-        /> */}
+        /> 
       </div>
     </div>
   );
