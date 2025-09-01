@@ -7,9 +7,8 @@ export default function RecipeCard({ recipe }) {
   const navigate = useNavigate();
 
   const handleLearnMoreClick = () => {
-    navigate(`/recipes/${_id}`);
+    navigate(`/recipes/${recipe._id}`);
   };
-
 
   return (
     <div className={css.recipeCard}>
@@ -18,14 +17,14 @@ export default function RecipeCard({ recipe }) {
         alt={recipe.title}
         className={css.recipeImage}
       />
-      <div className="css.head">
+      <div className={css.head}>
         <h3 className={css.recipeTitle}>{recipe.title}</h3>
 
         <div className={css.cookTime}>
           <svg className={css.timeIcon} width="24" height="24">
-            <use href="#icon-clock"></use>
+            <use xlinkHref="/sprite.svg#clock_icon"></use>
           </svg>
-          <span className="timeText">{recipe.time}</span>
+          <span className={css.timeText}>{recipe.time}</span>
         </div>
       </div>
 
