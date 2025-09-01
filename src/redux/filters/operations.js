@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axiosInstance";
+import {api} from "../../api/api";
 
 export const fetchCategories = createAsyncThunk(
   'filters/fetchCategories',
@@ -9,7 +9,7 @@ export const fetchCategories = createAsyncThunk(
       return state.filters.categories;
     }
     try {
-      const response = await axios.get('/categories');
+      const response = await api.get('/categories');
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -25,7 +25,7 @@ export const fetchIngredients = createAsyncThunk(
       return state.filters.ingredients;
     }
     try {
-      const response = await axios.get('/ingredients');
+      const response = await api.get('/ingredients');
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -5,7 +5,7 @@ import {
   createRecipe,
   updateFavorite,
   fetchFavoriteRecipes,
-} from "./recipesThunks";
+} from "./operations";
 import { notifyError, notifySuccess } from "../utils/notifications";
 
 const initialState = {

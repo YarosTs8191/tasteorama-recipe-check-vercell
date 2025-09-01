@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axiosInstance";
-import { getAllIngredientsAPI } from '../../api/ingredients.js';
+import {api} from "../../api/api";
+// import { getAllIngredientsAPI } from '../../api/ingredients.js';
 
 // =======================
 // FETCH ALL RECIPES
@@ -24,25 +24,25 @@ export const fetchRecipes = createAsyncThunk(
       }
       params.append('page', page);
       params.append('perPage', perPage);
-      const response = await axios.get(`/recipes?${params.toString()}`);
-      return response.data.data;
+      const response = await api.get(`/recipes?${params.toString()}`);
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const fetchAllIngredients = createAsyncThunk(
-  'recipe/fetchAllIngredients',
-  async (_, thunkAPI) => {
-    try {
-      const res = await getAllIngredientsAPI();
-      return res.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
+// export const fetchAllIngredients = createAsyncThunk(
+//   'recipe/fetchAllIngredients',
+//   async (_, thunkAPI) => {
+//     try {
+//       const res = await getAllIngredientsAPI();
+//       return res.data;
+//     } catch (e) {
+//       return thunkAPI.rejectWithValue(e.message);
+//     }
+//   }
+// );
 
 // =======================
 // FETCH RECIPE BY ID
@@ -51,7 +51,7 @@ export const fetchRecipeById = createAsyncThunk(
   "recipes/fetchRecipeById",
   async (recipeId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/recipes/${recipeId}`);
+      const response = await api.get(`/recipes/${recipeId}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Fetch recipe failed");
@@ -66,7 +66,7 @@ export const fetchFavoriteRecipes = createAsyncThunk(
   'recipes/fetchFavorites',
   async ({ page, limit }, thunkAPI) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `/recipes/favorites?page=${page}&limit=${limit}`
       );
 
@@ -93,7 +93,7 @@ export const fetchOwnRecipes = createAsyncThunk(
   'recipes/fetchOwn',
   async ({ page, limit }, thunkAPI) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `/recipes/own?page=${page}&limit=${limit}`
       );
       const { data } = response.data;
@@ -117,7 +117,7 @@ export const createRecipe = createAsyncThunk(
   "recipes/createRecipe",
   async (newRecipeData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/recipes", newRecipeData);
+      const response = await api.post("/recipes", newRecipeData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Create recipe failed");
@@ -132,7 +132,7 @@ export const updateFavorite = createAsyncThunk(
   "recipes/updateFavorite",
   async ({ recipeId, isFavorite }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`/recipes/${recipeId}/favorite`, {
+      const response = await api.patch(`/recipes/${recipeId}/favorite`, {
         isFavorite,
       });
       return response.data;

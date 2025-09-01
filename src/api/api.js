@@ -38,3 +38,5 @@ export const getIngredients = async () => {
   const response = await api.get('/ingredients');
   return response.data;
 };
+
+

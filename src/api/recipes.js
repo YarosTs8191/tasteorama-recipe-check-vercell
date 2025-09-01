@@ -9,16 +9,16 @@ export async function fetchRecipes({ page = 1, limit = 12, query, category } = {
   if (category) url.searchParams.set('category', category);
 
 export const getRecipeByIdAPI = async id => {
-  const response = await api.get(`api/recipes/${id}`);
+  const response = await api.get(`/recipes/${id}`);
   return response.data;
 };
 
 export const addFavoriteAPI = async id => {
-  const response = await api.post(`api/recipes/favorites/${id}`);
+  const response = await api.post(`/recipes/favorites/${id}`);
   return response.data;
 };
 
 export const removeFavoriteAPI = async id => {
-  const response = await api.delete(`api/recipes/favorites/${id}`);
+  const response = await api.delete(`/recipes/favorites/${id}`);
   return response.data;
 };
