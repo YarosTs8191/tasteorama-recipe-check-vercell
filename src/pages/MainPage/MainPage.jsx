@@ -17,6 +17,8 @@ import {
   selectRecipesTotalPages,
 } from "../../redux/recipes/selectors.js";
 import { selectFiltersError } from "../../redux/filters/selectors.js";
+import { useSearchParams } from "react-router-dom";
+import { fetchCategories, fetchIngredients } from "../../redux/filters/operations.js";
 
 const RECIPES_PER_PAGE = 12;
 
@@ -28,6 +30,13 @@ export default function MainPage() {
   const recipesLoading = useSelector(selectRecipesLoading);
   const recipesError = useSelector(selectRecipesError);
   const filtersError = useSelector(selectFiltersError);
+
+
+  const [search, setSearch] = useSearchParams();
+  console.log(search.get('ingredient'));
+  
+
+
 
   const sectionRef = useRef(null);
   const isFirstRender = useRef(true);
@@ -48,6 +57,7 @@ export default function MainPage() {
     setPage(1);
   };
 
+  // console.log(recipes.items);
   const handleResetAndCloseFilters = () => {
     setCurrentFilters({ category: "", ingredient: "" });
     setSearchQuery("");
@@ -118,9 +128,15 @@ export default function MainPage() {
     }
   }, [filtersError]);
 
+  useEffect(() => {
+    dispatch(fetchCategories());
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
   return (
     <section className={styles.section}>
       <div className={styles.mainPageContainer}>
+        <button onClick={()=>{setSearch({ingredient: 'newValue'})}}>Click</button>
         <Hero onSearch={handleSearch} searchQuery={searchQuery} />
         <div ref={sectionRef}>
           {searchQuery ? (
@@ -161,14 +177,14 @@ export default function MainPage() {
 
           {recipesLoading && <Loader />}
 
-          const recipes={recipes.recipes};
 
-          {!recipesLoading && !recipesError && recipes.length > 0 && (
+          {/* {!recipesLoading && !recipesError && recipes.length > 0 && (
 
             <RecipeList recipes={recipes.recipes} />
-          )}
+          )} */}
 
-          <RecipeList recipes={recipes.recipes} />
+          
+          <RecipeList recipes={recipes} />
           {recipes.length > 0 && !recipesLoading && (
             <Pagination
               currentPage={page}

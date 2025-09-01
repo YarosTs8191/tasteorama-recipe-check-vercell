@@ -25,7 +25,8 @@ export const fetchRecipes = createAsyncThunk(
       params.append('page', page);
       params.append('perPage', perPage);
       const response = await api.get(`/recipes?${params.toString()}`);
-      return response.data;
+      console.log(response.data.recipes);
+      return response.data.recipes;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
