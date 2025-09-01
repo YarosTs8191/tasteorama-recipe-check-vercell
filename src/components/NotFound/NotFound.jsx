@@ -13,6 +13,7 @@ const NotFound = () => {
   return (
     <div className={styles.container}>
        <img src={notFoundImg} alt="Not found" className={styles.image} /> 
+      <img src={notFoundImg} alt="Not found" className={styles.image} />
       <h1 className={styles.title}>404</h1>
       <p className={styles.text}>Recipe not found</p>
       <button className={styles.button} onClick={handleBackHome}>

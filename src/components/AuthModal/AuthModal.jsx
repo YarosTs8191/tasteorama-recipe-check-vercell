@@ -40,7 +40,7 @@ export default function AuthModal() {
           onClick={onClose}
         >
           <svg className={styles.modalIcon} width={24} height={24}>
-            <use href={`${iconSprite}#exit_logo`}></use>
+            <use href={`${iconSprite}#close_icon`}></use>
           </svg>
         </button>
         <h2 className={styles.modalTitle}>Interaction Error </h2>

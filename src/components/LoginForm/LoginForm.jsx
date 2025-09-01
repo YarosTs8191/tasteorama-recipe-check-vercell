@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import styles from "./LoginForm.module.css";
 import { loginUser } from "../../redux/auth/operations";
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,24 @@ const LoginForm = () => {
       navigate("/");
     } catch (error) {
       console.log("Login error:", error);
+
+const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      // Відправляємо тільки потрібні поля
+      const payload = {
+        email: values.email,
+        password: values.password,
+      };
+      await dispatch(loginUser(payload)).unwrap();
+      toast.success('Login successful', { position: 'top-right' });
+      resetForm();
+      
+      // Редірект на головну або на попередню сторінку
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
+    } catch (error) {
+      const errorMessage = error || 'Login failed';
+      toast.error(errorMessage, { position: 'top-right' });
     } finally {
       setSubmitting(false);
     }
