@@ -1,13 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const api = axios.create({
-  baseURL: 'https://tasteorama.onrender.com',
-  withCredentials: false, // якщо бекенд не вимагає cookie
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: false,
 });
 
-// Додаємо accessToken у всі запити, якщо він є
-api.interceptors.request.use(config => {
-  const token = localStorage.getItem('accessToken');
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -20,9 +19,9 @@ export const getRecipes = async (page = 1, limit = 12) => {
 };
 
 export const createRecipe = async (formData, token) => {
-  const res = await api.post('/recipes', formData, {
+  const res = await api.post("/recipes", formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -30,13 +29,11 @@ export const createRecipe = async (formData, token) => {
 };
 
 export const getCategories = async () => {
-  const res = await api.get('/categories');
+  const res = await api.get("/categories");
   return res.data;
 };
 
 export const getIngredients = async () => {
-  const response = await api.get('/ingredients');
+  const response = await api.get("/ingredients");
   return response.data;
 };
-
-

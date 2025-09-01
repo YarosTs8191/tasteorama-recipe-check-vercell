@@ -38,6 +38,14 @@ const RegisterForm = () => {
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    // локальна перевірка confirmPassword
+    if (values.password !== values.confirmPassword) {
+      alert("Passwords do not match");
+      setSubmitting(false);
+      return;
+    }
+
+    // бекенд приймає тільки name, email, password
     const payload = {
       name: values.name,
       email: values.email,
@@ -51,13 +59,15 @@ const RegisterForm = () => {
         navigate("/auth/login"); // редірект після успішної реєстрації
       })
       .catch((error) => {
-        // обробка 409 Conflict та інших помилок
-        if (error.message.includes("Conflict")) {
+        // детальна обробка помилок
+        if (error?.status === 409 || error?.message?.includes("Conflict")) {
           alert(
             "A user with this email already exists. Please login or use another email."
           );
+        } else if (error?.status === 400) {
+          alert("Invalid data. Please check the form.");
         } else {
-          alert(error.message);
+          alert(error?.message || "Registration failed. Please try again.");
         }
       })
       .finally(() => setSubmitting(false));
@@ -76,14 +86,32 @@ const RegisterForm = () => {
           <Form className={styles.form}>
             <div className={styles.field}>
               <label htmlFor="name">Enter your name</label>
-              <Field type="text" name="name" placeholder="Max" className={styles.input} />
-              <ErrorMessage name="name" component="div" className={styles.error} />
+              <Field
+                type="text"
+                name="name"
+                placeholder="Max"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                className={styles.error}
+              />
             </div>
 
             <div className={styles.field}>
               <label htmlFor="email">Enter your email address</label>
-              <Field type="email" name="email" placeholder="email@gmail.com" className={styles.input} />
-              <ErrorMessage name="email" component="div" className={styles.error} />
+              <Field
+                type="email"
+                name="email"
+                placeholder="email@gmail.com"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className={styles.error}
+              />
             </div>
 
             <div className={styles.field}>
@@ -95,11 +123,19 @@ const RegisterForm = () => {
                   placeholder="*********"
                   className={styles.input}
                 />
-                <button type="button" className={styles.eyeButton} onClick={() => setShowPassword(!showPassword)}>
+                <button
+                  type="button"
+                  className={styles.eyeButton}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
                   {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                 </button>
               </div>
-              <ErrorMessage name="password" component="div" className={styles.error} />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className={styles.error}
+              />
             </div>
 
             <div className={styles.field}>
@@ -111,14 +147,30 @@ const RegisterForm = () => {
                   placeholder="*********"
                   className={styles.input}
                 />
-                <button type="button" className={styles.eyeButton} onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                  {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                <button
+                  type="button"
+                  className={styles.eyeButton}
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <Eye size={20} />
+                  ) : (
+                    <EyeOff size={20} />
+                  )}
                 </button>
               </div>
-              <ErrorMessage name="confirmPassword" component="div" className={styles.error} />
+              <ErrorMessage
+                name="confirmPassword"
+                component="div"
+                className={styles.error}
+              />
             </div>
 
-            <button type="submit" className={styles.button} disabled={isSubmitting}>
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Loading..." : "Create account"}
             </button>
 
