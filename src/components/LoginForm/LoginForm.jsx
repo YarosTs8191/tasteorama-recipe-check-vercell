@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom"; // <- додано Link
-import styles from "./LoginForm.module.css";
-import {loginUser} from "../../redux/auth/operations";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-
+import styles from "./LoginForm.module.css";
+import { loginUser } from "../../redux/auth/operations";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -28,21 +27,30 @@ const LoginForm = () => {
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-  try {
-    const data = await dispatch(loginUser({
-      email: values.email,
-      password: values.password
-    })).unwrap();
+    try {
+      const data = await dispatch(
+        loginUser({
+          email: values.email,
+          password: values.password
+        })
+      ).unwrap();
 
-    localStorage.setItem("token", data.token); // <-- зберігаємо токен
-    resetForm();
-    navigate("/");
-  } catch (error) {
-    console.log("login error");
-  } finally {
-    setSubmitting(false);
-  }
-};
+      // Зберігаємо токен
+      localStorage.setItem("token", data.token);
+      
+
+      // Зберігаємо об’єкт користувача для хедера
+      // data.user має містити { name, email, id }
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      resetForm();
+      navigate("/");
+    } catch (error) {
+      console.log("Login error:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -83,11 +91,7 @@ const LoginForm = () => {
                   className={styles.eyeButton}
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
-                    <Eye size={20} className={styles.eyeIcon} />
-                  ) : (
-                    <EyeOff size={20} className={styles.eyeIcon} />
-                  )}
+                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                 </button>
               </div>
               <ErrorMessage

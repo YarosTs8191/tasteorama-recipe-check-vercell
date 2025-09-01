@@ -41,6 +41,7 @@ export default function Navigation({ isLoggedIn }) {
             Add Recipe
           </NavLink>
           <div className={styles.userSection}>
+            {/* UserInfo сам підтягує name з localStorage */}
             <UserInfo />
             <LogoutBtn />
           </div>
