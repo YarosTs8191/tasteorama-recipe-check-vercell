@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom"; // <- додано Link
 import styles from "./LoginForm.module.css";
 import {loginUser} from "../../redux/auth/operations";
 import { useDispatch } from 'react-redux';
-
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -27,22 +27,27 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-  try {
-    const data = await dispatch(loginUser({
-      email: values.email,
-      password: values.password
-    })).unwrap();
-
-    localStorage.setItem("token", data.token); // <-- зберігаємо токен
-    resetForm();
-    navigate("/");
-  } catch (error) {
-    console.log("login error");
-  } finally {
-    setSubmitting(false);
-  }
-};
+const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      // Відправляємо тільки потрібні поля
+      const payload = {
+        email: values.email,
+        password: values.password,
+      };
+      await dispatch(loginUser(payload)).unwrap();
+      toast.success('Login successful', { position: 'top-right' });
+      resetForm();
+      
+      // Редірект на головну або на попередню сторінку
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
+    } catch (error) {
+      const errorMessage = error || 'Login failed';
+      toast.error(errorMessage, { position: 'top-right' });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles.container}>

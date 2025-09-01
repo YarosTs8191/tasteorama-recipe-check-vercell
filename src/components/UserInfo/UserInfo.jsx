@@ -1,15 +1,15 @@
 import styles from './UserInfo.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthUser } from '../../redux/auth/selectors.js';
-import { useEffect } from 'react';
-import { fetchProfile } from '../../redux/profile/operations.js';
+// import { useEffect } from 'react';
+// import { fetchProfile } from '../../redux/profile/operations.js';
 
 export default function UserInfo() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProfile());
+  // }, [dispatch]);
 
   const user = useSelector(selectAuthUser);
   const name = user?.name || 'Guest';

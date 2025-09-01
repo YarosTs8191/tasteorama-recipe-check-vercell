@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axiosInstance"; // Створити axiosInstance з базовим URL і токеном
+import {api} from "../../api/api"; // Створити axiosInstance з базовим URL і токеном
 
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/register", userData);
+      const response = await api.post("/auth/register", userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Registration failed");
@@ -14,24 +14,36 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  "auth/login",
-  async (credentials, { rejectWithValue }) => {
+  'auth/login',
+  async (formData, thunkAPI) => {
     try {
-      const response = await axios.post("/auth/login", credentials);
-      return response.data; // Очікуємо { user, token }
+      const { data } = await api.post('/auth/login', formData);
+      if (data.data?.accessToken)
+        localStorage.setItem('accessToken', data.data.accessToken);
+      if (data.data?.refreshToken)
+        localStorage.setItem('refreshToken', data.data.refreshToken);
+      if (data.data?.accessToken) {
+        api.defaults.headers.common.Authorization = `Bearer ${data.data.accessToken}`;
+      }
+      return {
+        user: data.data?.user || data.data,
+        token: data.data?.accessToken || null,
+        refreshToken: data.data?.refreshToken || null,
+      };
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Login failed");
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Login failed'
+      );
     }
   }
 );
-
 
 export const logoutUser = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
-      await axios.post(
+      await api.post(
         "/auth/logout",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
@@ -48,7 +60,7 @@ export const refreshUser = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     try {
       const { token } = getState().auth;
-      const response = await axios.get("/users/me", {
+      const response = await api.get("/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProfile } from "./operations";
+// import { fetchProfile } from "./operations";
 import { notifyError } from "../utils/notifications";
 
 const initialState = {
@@ -17,22 +17,22 @@ const profileSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchProfile.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchProfile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(fetchProfile.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-        notifyError(action.payload);
-      });
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(fetchProfile.pending, (state) => {
+  //       state.loading = true;
+  //       state.error = null;
+  //     })
+  //     .addCase(fetchProfile.fulfilled, (state, action) => {
+  //       state.loading = false;
+  //       state.user = action.payload;
+  //     })
+  //     .addCase(fetchProfile.rejected, (state, action) => {
+  //       state.loading = false;
+  //       state.error = action.payload;
+  //       notifyError(action.payload);
+  //     });
+  // },
 });
 
 export const { clearProfile } = profileSlice.actions;
