@@ -1,5 +1,12 @@
+// src/redux/recipes/recipesSlice.js
+
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchRecipes, fetchRecipeById } from "./recipesThunks";
+import {
+  fetchRecipes,
+  fetchRecipeById,
+  createRecipe,
+  updateFavorite,
+} from "./recipesThunks";
 import { notifyError, notifySuccess } from "../utils/notifications";
 
 const initialState = {
@@ -20,18 +27,24 @@ const recipesSlice = createSlice({
       state.currentRecipe = null;
       state.error = null;
     },
+    clearError(state) {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
-      // fetch all recipes
+      // =======================
+      // FETCH ALL RECIPES
+      // =======================
       .addCase(fetchRecipes.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload.data || action.payload; // залежить від бекенду
-        // Якщо є пагінація — розпарси:
+        // Якщо бекенд повертає обʼєкт з data і пагінацією
+        state.items = action.payload.data || action.payload;
+
         if (action.payload.page) {
           state.page = action.payload.page;
           state.perPage = action.payload.perPage;
@@ -44,7 +57,9 @@ const recipesSlice = createSlice({
         notifyError(action.payload);
       })
 
-      // fetch recipe by id
+      // =======================
+      // FETCH RECIPE BY ID
+      // =======================
       .addCase(fetchRecipeById.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -57,9 +72,57 @@ const recipesSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         notifyError(action.payload);
+      })
+
+      // =======================
+      // CREATE NEW RECIPE
+      // =======================
+      .addCase(createRecipe.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createRecipe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items.unshift(action.payload); // додаємо новий рецепт на початок списку
+        notifySuccess("Рецепт успішно створений!");
+      })
+      .addCase(createRecipe.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        notifyError(action.payload);
+      })
+
+      // =======================
+      // UPDATE FAVORITE STATUS
+      // =======================
+      .addCase(updateFavorite.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateFavorite.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedRecipe = action.payload;
+
+        // Оновлюємо рецепт у списку
+        const index = state.items.findIndex((r) => r._id === updatedRecipe._id);
+        if (index !== -1) {
+          state.items[index] = updatedRecipe;
+        }
+
+        // Оновлюємо поточний рецепт, якщо він відкритий
+        if (state.currentRecipe?._id === updatedRecipe._id) {
+          state.currentRecipe = updatedRecipe;
+        }
+
+        notifySuccess("Статус обраного оновлено!");
+      })
+      .addCase(updateFavorite.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        notifyError(action.payload);
       });
   },
 });
 
-export const { clearCurrentRecipe } = recipesSlice.actions;
+export const { clearCurrentRecipe, clearError } = recipesSlice.actions;
 export default recipesSlice.reducer;

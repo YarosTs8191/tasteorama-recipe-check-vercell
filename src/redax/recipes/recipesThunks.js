@@ -1,6 +1,11 @@
+// src/redux/recipes/recipesThunks.js
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../api/axiosInstance";
 
+// =======================
+// FETCH ALL RECIPES
+// =======================
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
   async (params, { rejectWithValue }) => {
@@ -15,6 +20,9 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+// =======================
+// FETCH RECIPE BY ID
+// =======================
 export const fetchRecipeById = createAsyncThunk(
   "recipes/fetchRecipeById",
   async (recipeId, { rejectWithValue }) => {
@@ -27,4 +35,35 @@ export const fetchRecipeById = createAsyncThunk(
   }
 );
 
-// Можна додати createRecipe, updateFavorite тощо
+// =======================
+// CREATE NEW RECIPE
+// =======================
+export const createRecipe = createAsyncThunk(
+  "recipes/createRecipe",
+  async (newRecipeData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("/recipes", newRecipeData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Create recipe failed");
+    }
+  }
+);
+
+// =======================
+// UPDATE FAVORITE STATUS
+// =======================
+export const updateFavorite = createAsyncThunk(
+  "recipes/updateFavorite",
+  async ({ recipeId, isFavorite }, { rejectWithValue }) => {
+    try {
+      // Припустимо, бекенд приймає PATCH на цей endpoint для оновлення статусу "обране"
+      const response = await axios.patch(`/recipes/${recipeId}/favorite`, {
+        isFavorite,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Update favorite failed");
+    }
+  }
+);
