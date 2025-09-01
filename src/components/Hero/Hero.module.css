@@ -1,0 +1,84 @@
+/* Скидання */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+
+}
+
+/* Контейнер */
+.container {
+  position: relative;
+  width: 100%;
+  height: clamp(443px, 60vh, 720px);
+  /* адаптивна висота */
+  overflow: hidden;
+  z-index: 0;
+  font-family: var(--font-family);
+}
+
+/* Фонове зображення */
+.backgroundImage {
+  display: block;
+  width: 100%;
+  /* розтягнути по ширині */
+  height: 100%;
+  /* і по висоті секції */
+  object-fit: cover;
+  /* обрізає зайве, але заповнює всю секцію */
+  /* object-position: center center;
+  центроване */
+}
+
+/* Напівпрозорий оверлей */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Контент */
+.hero {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+/* Заголовок */
+.heroTitle {
+  color: white;
+  font-weight: 600;
+  font-size: clamp(28px, 5vw, 52px);
+  /* плавно масштабується */
+  line-height: 1.2;
+  margin-bottom: 24px;
+  text-align: left;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Tablet (≥768px) */
+@media screen and (min-width: 768px) {
+  .hero {
+    padding: 0 32px;
+  }
+
+  .heroTitle {
+    max-width: 500px;
+  }
+}
+
+/* Desktop (≥1280px) */
+@media screen and (min-width: 1280px) {
+  .heroTitle {
+    max-width: 600px;
+  }
+}

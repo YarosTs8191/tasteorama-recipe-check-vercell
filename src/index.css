@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+
+
 :root {
   /* Кольори */
   --black: #000;
@@ -71,4 +73,3 @@ img {
 li {
   list-style: none;
 }
-

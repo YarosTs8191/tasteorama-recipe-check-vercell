@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Eye, EyeOff } from "lucide-react"; // іконки очей
+import { Eye, EyeOff } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom"; // <- додано Link
 import styles from "./LoginForm.module.css";
+import {loginUser} from "../../redux/auth/operations";
+import { useDispatch } from 'react-redux';
+
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const initialValues = {
@@ -21,15 +27,26 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Login Data:", values);
-    setTimeout(() => setSubmitting(false), 500);
-  };
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+  try {
+    const data = await dispatch(loginUser({
+      email: values.email,
+      password: values.password
+    })).unwrap();
+
+    localStorage.setItem("token", data.token); // <-- зберігаємо токен
+    resetForm();
+    navigate("/");
+  } catch (error) {
+    console.log("login error");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Login</h2>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -90,9 +107,9 @@ const LoginForm = () => {
 
             <p className={styles.registerText}>
               Don’t have an account?{" "}
-              <a href="auth/register" className={styles.registerLink}>
+              <Link to="/auth/register" className={styles.registerLink}>
                 Register
-              </a>
+              </Link>
             </p>
           </Form>
         )}

@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
-import FavoriteButton from "../FavoriteButton/FavoriteButton";
+//import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import css from "./RecipeCard.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function RecipeCard({ recipe }) {
+
+  const navigate = useNavigate();
+
+  const handleLearnMoreClick = () => {
+    navigate(`/recipes/${recipe._id}`);
+  };
+
   return (
     <div className={css.recipeCard}>
       <img
@@ -10,27 +17,28 @@ export default function RecipeCard({ recipe }) {
         alt={recipe.title}
         className={css.recipeImage}
       />
-      <div className="css.head">
+      <div className={css.head}>
         <h3 className={css.recipeTitle}>{recipe.title}</h3>
 
         <div className={css.cookTime}>
           <svg className={css.timeIcon} width="24" height="24">
-            <use href="#icon-clock"></use>
+            <use xlinkHref="/sprite.svg#clock_icon"></use>
           </svg>
-          <span className="timeText">{recipe.time}</span>
+          <span className={css.timeText}>{recipe.time}</span>
         </div>
       </div>
 
       <p className={css.recipeDescription}>{recipe.description}</p>
       <p className={css.recipeCalories}>~{recipe.cals} kcal</p>
       <div className={css.foot}>
-        <Link to={`/recipes/${recipe._id}`} className={css.viewRecipeButton}>
+        <button className={css.viewRecipeButton} onClick={handleLearnMoreClick}>
           Learn More
-        </Link>
+        </button>
 
-        <FavoriteButton
+        {/* <FavoriteButton
           recipeId={recipe._id}
-        /></div>
+        /> */}
+      </div>
     </div>
   );
 }

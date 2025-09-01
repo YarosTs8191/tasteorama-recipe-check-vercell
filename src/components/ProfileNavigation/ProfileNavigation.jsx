@@ -4,18 +4,25 @@ import s from "./ProfileNavigation.module.css";
 export default function ProfileNavigation() {
   return (
     <div className={s.container}>
-      <NavLink
-        className={({ isActive }) => `${s.link} ${isActive ? s.active : ""}`}
-        to="own"
-      >
-        My Recipes
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => `${s.link} ${isActive ? s.active : ""}`}
-        to="favorites"
-      >
-        Saved Recipes
-      </NavLink>
+      <h2 className={s.title}>My Profile</h2>
+      <nav className={s.nav}>
+        <NavLink
+          to="/profile/own"
+          className={({ isActive }) =>
+            isActive ? `${s.link} ${s.active}` : s.link
+          }
+        >
+          My Recipes
+        </NavLink>
+        <NavLink
+          to="/profile/favorites"
+          className={({ isActive }) =>
+            isActive ? `${s.link} ${s.active}` : s.link
+          }
+        >
+          Saved Recipes
+        </NavLink>
+      </nav>
     </div>
   );
 }

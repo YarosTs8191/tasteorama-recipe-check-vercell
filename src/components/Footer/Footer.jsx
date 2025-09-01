@@ -3,21 +3,23 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/slice';
 import AuthModal from '../AuthModal/AuthModal';
-import iconSprite from '../../assets/icons/icons.svg';
+import iconSprite from '../../../public/sprite.svg';
 
 export default function Footer() {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const loggedIn = useSelector(state =>
+    Boolean(state?.auth?.isLoggedIn ?? state?.auth?.IsLoggedIn)
+  );
 
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const isAuthPage =
     location.pathname.includes('auth/login') ||
     location.pathname.includes('auth/register');
 
-  const dispatch = useDispatch();
 
   const handleClick = e => {
-    if (!isLoggedIn) {
+    if (!loggedIn) {
       e.preventDefault();
       dispatch(openModal({ type: 'auth' }));
     }
@@ -29,7 +31,7 @@ export default function Footer() {
         <div className={styles.footerContainer}>
           <Link to="/" className={styles.footerHomeLink}>
             <svg className={styles.footerIcon} width={32} height={30}>
-              <use href={`${iconSprite}#icon-logo`}></use>
+              <use href={`${iconSprite}#logo_icon`}></use>
             </svg>
             <span className={styles.logoSpan}>Tasteorama</span>
           </Link>
@@ -48,7 +50,7 @@ export default function Footer() {
           </nav>
         </div>
       </footer>
-      <AuthModal />
+      {!loggedIn && !isAuthPage && <AuthModal />}
     </>
   );
 }

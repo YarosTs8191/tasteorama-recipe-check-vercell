@@ -1,19 +1,40 @@
-import axios from "axios";
+import axios from 'axios';
 
-const axiosInstance = axios.create({
-  baseURL: "https://testeorama.onrender.com", // ← базовий URL до бекенду
-  headers: {
-    "Content-Type": "application/json",
-  },
+export const api = axios.create({
+  baseURL: 'https://tasteorama.onrender.com',
+  withCredentials: false, // якщо бекенд не вимагає cookie
 });
 
-// Додає Authorization заголовок автоматично, якщо є токен у localStorage
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+// Додаємо accessToken у всі запити, якщо він є
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('accessToken');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-export default axiosInstance;
+export const getRecipes = async (page = 1, limit = 12) => {
+  const res = await api.get(`/recipes?page=${page}&limit=${limit}`);
+  return res.data;
+};
+
+export const createRecipe = async (formData, token) => {
+  const res = await api.post('/recipes', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+};
+
+export const getCategories = async () => {
+  const res = await api.get('/categories');
+  return res.data;
+};
+
+export const getIngredients = async () => {
+  const response = await api.get('/ingredients');
+  return response.data;
+};

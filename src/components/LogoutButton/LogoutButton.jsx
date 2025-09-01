@@ -1,5 +1,5 @@
 import styles from './LogoutButton.module.css';
-import sprite from '../../assets/icons/icons.svg';
+import sprite from '../../../public/sprite.svg';
 import { useState } from 'react';
 import ModalLogout from '../ModalLogout/ModalLogout.jsx';
 
@@ -16,7 +16,7 @@ export default function LogoutButton({ onBurgerModalClose }) {
     <>
       <button className={styles.logout} onClick={handleOpenModal}>
         <svg className={styles.logoutBtn}>
-          <use href={`${sprite}#icon-logout`} />
+          <use href={`${sprite}#exit_logo`} />
         </svg>
       </button>
       <ModalLogout
