@@ -54,4 +54,52 @@ export const fetchRecipeById = createAsyncThunk(
   }
 );
 
+export const fetchFavoriteRecipes = createAsyncThunk(
+  'recipes/fetchFavorites',
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `/recipes/favorites?page=${page}&limit=${limit}`
+      );
+
+      const {
+        data,
+        page: currentPage,
+        hasNextPage,
+        totalItems,
+      } = response.data;
+
+      return {
+        recipes: data,
+        page: currentPage,
+        hasNextPage,
+        totalItems,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchOwnRecipes = createAsyncThunk(
+  'recipes/fetchOwn',
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `/recipes/own?page=${page}&limit=${limit}`
+      );
+      const { data } = response.data;
+
+      return {
+        recipes: data.data,
+        page: data.page,
+        totalItems: data.totalItems,
+        hasNextPage: data.hasNextPage,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 // Можна додати createRecipe, updateFavorite тощо
