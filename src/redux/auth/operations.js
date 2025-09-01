@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {api} from "../../api/api"; // Створити axiosInstance з базовим URL і токеном
+import { api } from "../../api/api"; // Створити axiosInstance з базовим URL і токеном
 
 export const registerUser = createAsyncThunk(
   "auth/register",
@@ -8,20 +8,21 @@ export const registerUser = createAsyncThunk(
       const response = await api.post("/auth/register", userData);
       return response.data;
     } catch (error) {
+      console.error("Register error:", error.response?.data);
       return rejectWithValue(error.response?.data || "Registration failed");
     }
   }
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async (formData, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/login', formData);
+      const { data } = await api.post("/auth/login", formData);
       if (data.data?.accessToken)
-        localStorage.setItem('accessToken', data.data.accessToken);
+        localStorage.setItem("accessToken", data.data.accessToken);
       if (data.data?.refreshToken)
-        localStorage.setItem('refreshToken', data.data.refreshToken);
+        localStorage.setItem("refreshToken", data.data.refreshToken);
       if (data.data?.accessToken) {
         api.defaults.headers.common.Authorization = `Bearer ${data.data.accessToken}`;
       }
@@ -32,7 +33,7 @@ export const loginUser = createAsyncThunk(
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Login failed'
+        error.response?.data?.message || "Login failed"
       );
     }
   }
