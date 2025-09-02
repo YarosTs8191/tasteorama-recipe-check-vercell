@@ -1,6 +1,7 @@
 import ProfileNavigation from "../../components/ProfileNavigation/ProfileNavigation.jsx";
 
-import RecipesList from "../components/RecipesList";
+import RecipeList from "../../components/RecipeList/RecipeList";
+
 import s from "./ProfilePage.module.css";
 
 export default function ProfilePage() {
