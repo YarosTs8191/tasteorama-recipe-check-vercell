@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-// екшени береш напряму з файлів
 import { fetchRecipeById } from "../../redux/recipes/operations";
-import { clearRecipe } from "../../redux/recipes/slice";
+import { clearCurrentRecipe } from "../../redux/recipes/slice";
 
 import RecipeDetails from "../../components/RecipeDetails/RecipeDetails";
 import NotFound from "../../components/NotFound/NotFound";
@@ -26,7 +24,7 @@ export default function RecipeViewPage() {
     }
 
     return () => {
-      dispatch(clearRecipe());
+      dispatch(clearCurrentRecipe());
     };
   }, [dispatch, recipeId]);
 

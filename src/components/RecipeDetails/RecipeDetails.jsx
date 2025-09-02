@@ -3,7 +3,7 @@ import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import styles from "./RecipeDetails.module.css";
 import IngredientsList from "./IngredientsList";
 import StepsList from "./StepsList";
-import FavoriteButton from "../RecipeCard/FavoriteButton"; // ✅ підключаємо готову кнопку
+import FavoriteButton from "../RecipeCard/FavoriteButton/FavoriteButton.jsx";
 
 export default function RecipeDetails({ recipe }) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
